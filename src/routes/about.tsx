@@ -5,10 +5,6 @@ import { Button } from '@/components/ui/button'
 import { 
   Smartphone, 
   Layers, 
-  Flame, 
-  ShieldCheck, 
-  Code2, 
-  ExternalLink,
   Cpu
 } from 'lucide-react'
 import { toast } from 'sonner'
@@ -35,53 +31,53 @@ function AboutPage() {
   }
 
   return (
-    <div className="p-4 space-y-4">
+    <div className="p-4 space-y-4 pb-20 bg-[#F7F9FC]">
       {/* App Header Info */}
-      <div className="p-5 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700/80 space-y-3">
+      <div className="p-5 rounded-2xl bg-gradient-to-r from-[#123B5D] to-[#2878A5] text-white shadow-md space-y-3">
         <div className="flex items-center gap-3">
-          <div className="h-12 w-12 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
+          <div className="h-12 w-12 rounded-2xl bg-white/15 border border-white/20 flex items-center justify-center text-[#F4A340]">
             <Smartphone className="w-6 h-6" />
           </div>
           <div>
             <h2 className="text-base font-bold text-white">AyoTrip Mobile</h2>
-            <p className="text-xs text-slate-400">Versi 1.0.0 • Mobile Production Ready</p>
+            <p className="text-xs text-white/80">Versi 1.0.0 • Mobile Production Ready</p>
           </div>
         </div>
-        <p className="text-xs text-slate-300 leading-relaxed">
+        <p className="text-xs text-white/90 leading-relaxed">
           Arsitektur mobile modern yang menggabungkan kecepatan web native dengan kapabilitas hybrid Capacitor JS untuk platform Android dan iOS.
         </p>
         <div className="flex flex-wrap gap-1.5 pt-1">
-          <Badge className="bg-slate-800 text-emerald-400 border border-slate-700 text-[10px]">
+          <Badge className="bg-white/20 text-white border border-white/30 text-[10px]">
             Capacitor Ready
           </Badge>
-          <Badge className="bg-slate-800 text-teal-400 border border-slate-700 text-[10px]">
+          <Badge className="bg-white/20 text-white border border-white/30 text-[10px]">
             TanStack Suite
           </Badge>
-          <Badge className="bg-slate-800 text-sky-400 border border-slate-700 text-[10px]">
+          <Badge className="bg-white/20 text-white border border-white/30 text-[10px]">
             Shadcn UI Full Pack
           </Badge>
         </div>
       </div>
 
       {/* Tech Stack Breakdown */}
-      <Card className="bg-slate-900 border-slate-800 text-slate-100">
-        <CardHeader className="pb-3">
-          <CardTitle className="text-sm font-bold text-white flex items-center gap-2">
-            <Layers className="w-4 h-4 text-emerald-400" />
+      <Card className="bg-white border-[#E7ECF0] text-[#172B3A] shadow-sm rounded-2xl">
+        <CardHeader className="pb-3 border-b border-[#E7ECF0]">
+          <CardTitle className="text-sm font-bold text-[#172B3A] flex items-center gap-2">
+            <Layers className="w-4 h-4 text-[#123B5D]" />
             Spesifikasi Tech Stack
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-2.5">
+        <CardContent className="space-y-2.5 pt-4">
           {TECH_STACK_ITEMS.map((item, idx) => (
             <div
               key={idx}
-              className="flex items-center justify-between p-2.5 rounded-xl bg-slate-800/40 border border-slate-800/80"
+              className="flex items-center justify-between p-3 rounded-xl bg-[#F7F9FC] border border-[#E7ECF0]"
             >
               <div>
-                <p className="text-xs font-bold text-white">{item.name}</p>
-                <p className="text-[11px] text-slate-400">{item.role}</p>
+                <p className="text-xs font-bold text-[#172B3A]">{item.name}</p>
+                <p className="text-[11px] text-[#7B8794]">{item.role}</p>
               </div>
-              <Badge variant="outline" className="text-[10px] text-emerald-400 border-slate-700">
+              <Badge variant="outline" className="text-[10px] text-[#123B5D] bg-[#EBF3F8] border-[#2878A5]/30 font-bold">
                 {item.version}
               </Badge>
             </div>
@@ -90,28 +86,28 @@ function AboutPage() {
       </Card>
 
       {/* Capacitor Actions */}
-      <Card className="bg-slate-900 border-slate-800 text-slate-100">
-        <CardHeader className="pb-3">
-          <CardTitle className="text-sm font-bold text-white flex items-center gap-2">
-            <Cpu className="w-4 h-4 text-emerald-400" />
+      <Card className="bg-white border-[#E7ECF0] text-[#172B3A] shadow-sm rounded-2xl">
+        <CardHeader className="pb-3 border-b border-[#E7ECF0]">
+          <CardTitle className="text-sm font-bold text-[#172B3A] flex items-center gap-2">
+            <Cpu className="w-4 h-4 text-[#123B5D]" />
             Native Mobile Bridge
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-3">
-          <p className="text-xs text-slate-400 leading-relaxed">
+        <CardContent className="space-y-3 pt-4">
+          <p className="text-xs text-[#7B8794] leading-relaxed">
             Jalankan perintah berikut di terminal untuk menyelaraskan aset mobile ke platform Android / iOS:
           </p>
-          <div className="p-3 bg-slate-950 rounded-xl font-mono text-[11px] text-emerald-400 border border-slate-800 space-y-1">
-            <p># Build web distribution</p>
+          <div className="p-3.5 bg-[#172B3A] rounded-xl font-mono text-[11px] text-[#2E9D70] border border-[#172B3A] space-y-1">
+            <p className="text-slate-400"># Build web distribution</p>
             <p className="text-white">npm run build</p>
-            <p className="mt-2"># Tambah & Sync platform mobile</p>
+            <p className="text-slate-400 mt-2"># Tambah & Sync platform mobile</p>
             <p className="text-white">npx cap add android</p>
             <p className="text-white">npx cap sync</p>
           </div>
 
           <Button
             onClick={handleCapacitorCheck}
-            className="w-full bg-slate-800 hover:bg-slate-700 text-xs text-emerald-400 border border-slate-700"
+            className="w-full bg-[#123B5D] hover:bg-[#0e2f4a] text-xs text-white font-bold rounded-xl h-10 shadow-xs"
           >
             Tes Native Bridge Status
           </Button>
@@ -120,4 +116,3 @@ function AboutPage() {
     </div>
   )
 }
-

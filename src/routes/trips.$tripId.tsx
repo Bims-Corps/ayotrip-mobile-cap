@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { createFileRoute, Link, useRouter } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
-import { tripApi, type Trip } from '@/services/tripService'
+import { tripApi } from '@/services/tripService'
 import { wishlistService } from '@/services/wishlistService'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -20,12 +20,6 @@ import {
   CalendarDays,
   Sparkles,
   Users,
-  Building2,
-  Phone,
-  Compass,
-  AlertTriangle,
-  Info,
-  ChevronRight,
   Navigation,
   Check,
   Coins
@@ -49,7 +43,7 @@ function TripDetailPage() {
   const [isFavorited, setIsFavorited] = useState(() => wishlistService.isInWishlist(tripId))
 
   // TanStack Query for dynamic trip details
-  const { data: trip, isLoading, isError, error, refetch } = useQuery({
+  const { data: trip, isLoading, isError, error } = useQuery({
     queryKey: ['trip', tripId],
     queryFn: () => tripApi.getTripById(tripId),
   })
@@ -79,13 +73,13 @@ function TripDetailPage() {
 
   if (isLoading) {
     return (
-      <div className="p-4 space-y-4">
-        <Skeleton className="h-64 w-full rounded-2xl bg-slate-800" />
-        <Skeleton className="h-6 w-3/4 bg-slate-800" />
-        <Skeleton className="h-4 w-1/2 bg-slate-800" />
+      <div className="p-4 space-y-4 bg-[#F7F9FC]">
+        <Skeleton className="h-64 w-full rounded-2xl bg-[#E7ECF0]" />
+        <Skeleton className="h-6 w-3/4 bg-[#E7ECF0]" />
+        <Skeleton className="h-4 w-1/2 bg-[#E7ECF0]" />
         <div className="space-y-2 pt-4">
-          <Skeleton className="h-20 w-full rounded-xl bg-slate-800" />
-          <Skeleton className="h-20 w-full rounded-xl bg-slate-800" />
+          <Skeleton className="h-20 w-full rounded-xl bg-[#E7ECF0]" />
+          <Skeleton className="h-20 w-full rounded-xl bg-[#E7ECF0]" />
         </div>
       </div>
     )
@@ -93,12 +87,12 @@ function TripDetailPage() {
 
   if (isError || !trip) {
     return (
-      <div className="p-6 text-center space-y-4">
-        <div className="p-4 rounded-xl bg-red-950/40 border border-red-800/60 text-red-300">
+      <div className="p-6 text-center space-y-4 bg-[#F7F9FC]">
+        <div className="p-4 rounded-2xl bg-red-50 border border-red-200 text-red-900">
           <p className="font-semibold text-sm">Gagal memuat detail perjalanan</p>
-          <p className="text-xs text-red-400 mt-1">{(error as Error)?.message || 'Trip tidak ditemukan'}</p>
+          <p className="text-xs text-red-600 mt-1">{(error as Error)?.message || 'Trip tidak ditemukan'}</p>
         </div>
-        <Button onClick={() => router.navigate({ to: '/' })} className="bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold">
+        <Button onClick={() => router.navigate({ to: '/' })} className="bg-[#123B5D] hover:bg-[#0e2f4a] text-white font-bold rounded-xl">
           Kembali ke Beranda
         </Button>
       </div>
@@ -109,38 +103,41 @@ function TripDetailPage() {
   const currentPhoto = allPhotos[activePhotoIdx] || trip.imageUrl
 
   return (
-    <div className="space-y-5 pb-20">
+    <div className="space-y-5 pb-24 bg-[#F7F9FC]">
       {/* 1. PHOTO GALLERY & HERO CAROUSEL */}
-      <div className="relative h-72 w-full bg-slate-950">
+      <div className="relative h-72 w-full bg-[#123B5D]">
         <img
           src={currentPhoto}
           alt={trip.title}
           className="w-full h-full object-cover transition-all duration-300"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-slate-900/60" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/50" />
 
         {/* Floating Top Header Controls */}
         <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
           <button
             onClick={() => window.history.back()}
-            className="h-9 w-9 rounded-full bg-slate-900/80 backdrop-blur-md flex items-center justify-center text-white hover:bg-slate-800 transition-all border border-slate-700/60 shadow-lg"
+            className="h-9 w-9 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-[#172B3A] hover:bg-white transition-all border border-white/60 shadow-md"
+            aria-label="Kembali"
           >
             <ArrowLeft className="w-4 h-4" />
           </button>
           <div className="flex items-center gap-2">
             <button
               onClick={handleShare}
-              className="h-9 w-9 rounded-full bg-slate-900/80 backdrop-blur-md flex items-center justify-center text-white hover:bg-slate-800 transition-all border border-slate-700/60 shadow-lg"
+              className="h-9 w-9 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-[#172B3A] hover:bg-white transition-all border border-white/60 shadow-md"
+              aria-label="Bagikan"
             >
               <Share2 className="w-4 h-4" />
             </button>
             <button
               onClick={handleToggleFavorite}
-              className={`h-9 w-9 rounded-full backdrop-blur-md flex items-center justify-center transition-all border shadow-lg ${
+              className={`h-9 w-9 rounded-full backdrop-blur-md flex items-center justify-center transition-all border shadow-md ${
                 isFavorited 
-                  ? 'bg-rose-500 text-white border-rose-400' 
-                  : 'bg-slate-900/80 text-slate-300 border-slate-700/60 hover:text-rose-400'
+                  ? 'bg-[#D9534F] text-white border-[#D9534F]' 
+                  : 'bg-white/90 text-[#172B3A] border-white/60 hover:text-[#D9534F]'
               }`}
+              aria-label="Simpan Favorit"
             >
               <Heart className={`w-4 h-4 ${isFavorited ? 'fill-white' : ''}`} />
             </button>
@@ -154,8 +151,8 @@ function TripDetailPage() {
               <button
                 key={i}
                 onClick={() => setActivePhotoIdx(i)}
-                className={`w-9 h-9 rounded-lg overflow-hidden border-2 transition-all ${
-                  activePhotoIdx === i ? 'border-emerald-400 scale-105 shadow-md' : 'border-white/40 opacity-70'
+                className={`w-9 h-9 rounded-xl overflow-hidden border-2 transition-all shadow-sm ${
+                  activePhotoIdx === i ? 'border-[#F4A340] scale-105' : 'border-white/50 opacity-75'
                 }`}
               >
                 <img src={photo} alt="" className="w-full h-full object-cover" />
@@ -167,18 +164,18 @@ function TripDetailPage() {
         {/* Hero Badges */}
         <div className="absolute bottom-4 left-4 right-4 space-y-1.5">
           <div className="flex items-center gap-2 flex-wrap">
-            <Badge className="bg-emerald-500 text-slate-950 font-bold border-none text-xs">
+            <Badge className="bg-[#123B5D] text-white font-bold border-none text-xs shadow-xs">
               {trip.category}
             </Badge>
             {trip.packageType && (
-              <Badge className="bg-teal-900/90 text-teal-200 border-teal-500/40 text-xs">
+              <Badge className="bg-[#2878A5] text-white border-none text-xs">
                 {trip.packageType}
               </Badge>
             )}
-            <div className="flex items-center gap-1 bg-slate-900/90 backdrop-blur-md px-2 py-0.5 rounded-full text-amber-400 text-xs font-bold border border-slate-700/50">
-              <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+            <div className="flex items-center gap-1 bg-white/95 backdrop-blur-md px-2 py-0.5 rounded-full text-[#172B3A] text-xs font-bold border border-[#E7ECF0] shadow-xs">
+              <Star className="w-3.5 h-3.5 fill-[#F4A340] text-[#F4A340]" />
               <span>{trip.rating.toFixed(1)}</span>
-              <span className="text-[10px] text-slate-400">({trip.reviewsCount} review)</span>
+              <span className="text-[10px] text-[#7B8794]">({trip.reviewsCount} review)</span>
             </div>
           </div>
           <h1 className="text-xl font-extrabold text-white leading-snug drop-shadow-md">
@@ -192,72 +189,72 @@ function TripDetailPage() {
         
         {/* 2. GENERAL INFO STATS GRID */}
         <div className="grid grid-cols-3 gap-2 text-center text-xs">
-          <div className="p-2.5 bg-slate-800/60 border border-slate-800 rounded-xl space-y-1">
-            <Clock className="w-4 h-4 text-emerald-400 mx-auto" />
-            <span className="text-[10px] text-slate-400 block">Durasi</span>
-            <span className="font-bold text-slate-200">{trip.duration}</span>
+          <div className="p-3 bg-white border border-[#E7ECF0] rounded-2xl space-y-1 shadow-sm">
+            <Clock className="w-4 h-4 text-[#2878A5] mx-auto" />
+            <span className="text-[10px] text-[#7B8794] block">Durasi</span>
+            <span className="font-bold text-[#172B3A]">{trip.duration}</span>
           </div>
 
-          <div className="p-2.5 bg-slate-800/60 border border-slate-800 rounded-xl space-y-1">
-            <Users className="w-4 h-4 text-teal-400 mx-auto" />
-            <span className="text-[10px] text-slate-400 block">Peserta</span>
-            <span className="font-bold text-slate-200">{trip.minParticipants} - {trip.maxParticipants} Pax</span>
+          <div className="p-3 bg-white border border-[#E7ECF0] rounded-2xl space-y-1 shadow-sm">
+            <Users className="w-4 h-4 text-[#F4A340] mx-auto" />
+            <span className="text-[10px] text-[#7B8794] block">Peserta</span>
+            <span className="font-bold text-[#172B3A]">{trip.minParticipants} - {trip.maxParticipants} Pax</span>
           </div>
 
-          <div className="p-2.5 bg-slate-800/60 border border-slate-800 rounded-xl space-y-1">
-            <Navigation className="w-4 h-4 text-cyan-400 mx-auto" />
-            <span className="text-[10px] text-slate-400 block">Berangkat</span>
-            <span className="font-bold text-slate-200 truncate block">{trip.departureCity}</span>
+          <div className="p-3 bg-white border border-[#E7ECF0] rounded-2xl space-y-1 shadow-sm">
+            <Navigation className="w-4 h-4 text-[#2E9D70] mx-auto" />
+            <span className="text-[10px] text-[#7B8794] block">Berangkat</span>
+            <span className="font-bold text-[#172B3A] truncate block">{trip.departureCity}</span>
           </div>
         </div>
 
         {/* 3. VENDOR / PENYEDIA PAKET WISATA */}
-        <div className="p-3.5 rounded-2xl bg-slate-800/50 border border-slate-800 flex items-center justify-between">
+        <div className="p-4 rounded-2xl bg-white border border-[#E7ECF0] shadow-sm flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img
               src={trip.vendor.logo}
               alt={trip.vendor.name}
-              className="w-12 h-12 rounded-xl object-cover border border-emerald-500/30"
+              className="w-12 h-12 rounded-xl object-cover border border-[#E7ECF0]"
             />
             <div>
               <div className="flex items-center gap-1.5">
-                <h4 className="text-xs font-bold text-white">{trip.vendor.name}</h4>
+                <h4 className="text-xs font-bold text-[#172B3A]">{trip.vendor.name}</h4>
                 {trip.vendor.verified && (
-                  <span className="p-0.5 rounded-full bg-emerald-500 text-slate-950">
+                  <span className="p-0.5 rounded-full bg-[#2E9D70] text-white">
                     <Check className="w-2.5 h-2.5" />
                   </span>
                 )}
               </div>
-              <p className="text-[10px] text-slate-400">
+              <p className="text-[10px] text-[#7B8794]">
                 Penyedia Resmi AyoTrip • {trip.vendor.tripsHandled}+ trip ditangani
               </p>
-              <div className="flex items-center gap-2 mt-0.5 text-[10px] text-emerald-400 font-semibold">
+              <div className="flex items-center gap-2 mt-0.5 text-[10px] text-[#2878A5] font-semibold">
                 <span>⭐ {trip.vendor.rating} Rating</span>
                 <span>• Respon {trip.vendor.responseRate}</span>
               </div>
             </div>
           </div>
-          <Button variant="ghost" size="sm" className="h-8 text-xs text-emerald-400 hover:bg-slate-700/50">
+          <Button variant="ghost" size="sm" className="h-8 text-xs text-[#123B5D] font-bold hover:bg-[#F7F9FC] rounded-xl">
             Profil
           </Button>
         </div>
 
         {/* 4. DESKRIPSI & HIGHLIGHTS */}
         <div className="space-y-3">
-          <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5 text-emerald-400" /> Deskripsi Perjalanan
+          <h3 className="text-xs font-bold text-[#123B5D] uppercase tracking-wider flex items-center gap-1.5">
+            <Sparkles className="w-3.5 h-3.5 text-[#2878A5]" /> Deskripsi Perjalanan
           </h3>
-          <p className="text-xs text-slate-300 leading-relaxed bg-slate-800/40 p-3.5 rounded-xl border border-slate-800/80">
+          <p className="text-xs text-[#172B3A] leading-relaxed bg-white p-4 rounded-2xl border border-[#E7ECF0] shadow-sm">
             {trip.description}
           </p>
 
           <div className="space-y-2">
-            <h4 className="text-xs font-bold text-slate-300 uppercase tracking-wider">Highlight Wisata</h4>
+            <h4 className="text-xs font-bold text-[#172B3A] uppercase tracking-wider">Highlight Wisata</h4>
             <div className="grid grid-cols-2 gap-2 text-xs">
               {trip.highlights.map((item, idx) => (
-                <div key={idx} className="flex items-center gap-2 bg-slate-800/30 p-2.5 rounded-lg border border-slate-800/60 text-slate-200">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                  <span className="text-[11px] leading-tight">{item}</span>
+                <div key={idx} className="flex items-center gap-2 bg-white p-3 rounded-xl border border-[#E7ECF0] text-[#172B3A] shadow-xs">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#2E9D70] shrink-0" />
+                  <span className="text-[11px] font-medium leading-tight">{item}</span>
                 </div>
               ))}
             </div>
@@ -265,13 +262,15 @@ function TripDetailPage() {
         </div>
 
         {/* 5. ITINERARY & JADWAL PERJALANAN (DAY BY DAY) */}
-        <div className="space-y-3 pt-2">
+        <div className="space-y-3 pt-1">
           <div className="flex items-center justify-between">
-            <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
-              <CalendarDays className="w-4 h-4 text-emerald-400" />
+            <h3 className="text-xs font-bold text-[#123B5D] uppercase tracking-wider flex items-center gap-1.5">
+              <CalendarDays className="w-4 h-4 text-[#2878A5]" />
               Itinerary & Jadwal Perjalanan
             </h3>
-            <span className="text-[10px] text-emerald-400 font-medium">Bisa Disesuaikan</span>
+            <span className="text-[10px] text-[#2878A5] font-bold bg-[#EBF3F8] px-2 py-0.5 rounded-full">
+              Bisa Disesuaikan
+            </span>
           </div>
 
           {trip.itinerary && trip.itinerary.length > 0 ? (
@@ -282,10 +281,10 @@ function TripDetailPage() {
                   <button
                     key={dayPlan.day}
                     onClick={() => setActiveDay(dayPlan.day)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
+                    className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
                       activeDay === dayPlan.day
-                        ? 'bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/20'
-                        : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                        ? 'bg-[#123B5D] text-white shadow-sm'
+                        : 'bg-white text-[#7B8794] hover:text-[#172B3A] border border-[#E7ECF0]'
                     }`}
                   >
                     Hari {dayPlan.day}
@@ -297,36 +296,36 @@ function TripDetailPage() {
               {trip.itinerary
                 .filter((dayPlan) => dayPlan.day === activeDay)
                 .map((dayPlan) => (
-                  <div key={dayPlan.day} className="p-3.5 rounded-2xl bg-slate-800/50 border border-slate-800 space-y-3">
-                    <div className="border-b border-slate-700/60 pb-2">
-                      <h4 className="font-bold text-sm text-white">Hari {dayPlan.day}: {dayPlan.title}</h4>
-                      <p className="text-xs text-slate-400 mt-0.5">{dayPlan.description}</p>
+                  <div key={dayPlan.day} className="p-4 rounded-2xl bg-white border border-[#E7ECF0] shadow-sm space-y-3">
+                    <div className="border-b border-[#E7ECF0] pb-2.5">
+                      <h4 className="font-bold text-sm text-[#172B3A]">Hari {dayPlan.day}: {dayPlan.title}</h4>
+                      <p className="text-xs text-[#7B8794] mt-0.5">{dayPlan.description}</p>
                     </div>
 
                     {/* Timeline items */}
-                    <div className="space-y-3 relative pl-4 border-l-2 border-emerald-500/40 ml-2">
+                    <div className="space-y-3 relative pl-4 border-l-2 border-[#2878A5]/40 ml-2">
                       {dayPlan.items.map((item, idx) => (
                         <div key={idx} className="relative group space-y-1">
                           {/* Dot indicator */}
                           <div className={`absolute -left-[23px] top-1 w-3.5 h-3.5 rounded-full border-2 ${
                             item.isHighlight 
-                              ? 'bg-emerald-400 border-slate-900 shadow-md shadow-emerald-400/50' 
-                              : 'bg-slate-700 border-slate-900'
+                              ? 'bg-[#123B5D] border-white shadow-xs' 
+                              : 'bg-[#7B8794] border-white'
                           }`} />
 
                           <div className="flex items-center justify-between text-[11px]">
-                            <span className="font-mono text-emerald-300 font-bold">{item.time}</span>
+                            <span className="font-mono text-[#123B5D] font-bold">{item.time}</span>
                             {item.estimatedTravel && item.estimatedTravel !== '-' && (
-                              <span className="text-[10px] text-slate-400 bg-slate-900/60 px-1.5 py-0.5 rounded">
+                              <span className="text-[10px] text-[#7B8794] bg-[#F7F9FC] px-1.5 py-0.5 rounded border border-[#E7ECF0]">
                                 Waktu tempuh: {item.estimatedTravel}
                               </span>
                             )}
                           </div>
 
-                          <p className="text-xs font-bold text-white leading-snug">{item.activity}</p>
+                          <p className="text-xs font-bold text-[#172B3A] leading-snug">{item.activity}</p>
 
-                          <div className="flex items-center gap-1 text-[11px] text-slate-400">
-                            <MapPin className="w-3 h-3 text-emerald-400" />
+                          <div className="flex items-center gap-1 text-[11px] text-[#7B8794]">
+                            <MapPin className="w-3 h-3 text-[#F4A340]" />
                             <span>{item.locationName}</span>
                           </div>
                         </div>
@@ -335,12 +334,12 @@ function TripDetailPage() {
 
                     {/* Extra costs if any */}
                     {dayPlan.extraCosts && dayPlan.extraCosts.length > 0 && (
-                      <div className="mt-3 p-2.5 rounded-xl bg-amber-950/20 border border-amber-800/40 space-y-1 text-xs">
-                        <span className="text-[10px] font-bold text-amber-300 flex items-center gap-1">
+                      <div className="mt-3 p-3 rounded-xl bg-[#FFF7ED] border border-[#F4A340]/30 space-y-1 text-xs">
+                        <span className="text-[10px] font-bold text-[#F4A340] flex items-center gap-1">
                           <Coins className="w-3.5 h-3.5" /> Estimasi Biaya Tambahan Hari Ini (Opsional):
                         </span>
                         {dayPlan.extraCosts.map((extra, i) => (
-                          <div key={i} className="flex justify-between text-[11px] text-amber-200/90">
+                          <div key={i} className="flex justify-between text-[11px] text-[#172B3A]">
                             <span>• {extra.item}</span>
                             <span className="font-bold">Rp {extra.cost.toLocaleString('id-ID')}</span>
                           </div>
@@ -351,22 +350,22 @@ function TripDetailPage() {
                 ))}
             </div>
           ) : (
-            <div className="p-4 bg-slate-800/30 rounded-xl text-xs text-slate-400 text-center">
+            <div className="p-4 bg-white rounded-2xl border border-[#E7ECF0] text-xs text-[#7B8794] text-center shadow-xs">
               Jadwal kegiatan fleksibel disesuaikan dengan kondisi cuaca dan preferensi peserta trip.
             </div>
           )}
         </div>
 
         {/* 6. TITIK KUMPUL & LOKASI KEBERANGKATAN */}
-        <div className="p-3.5 rounded-2xl bg-slate-800/40 border border-slate-800 space-y-2.5">
-          <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
-            <MapPin className="w-4 h-4 text-emerald-400" /> Titik Kumpul Keberangkatan
+        <div className="p-4 rounded-2xl bg-white border border-[#E7ECF0] shadow-sm space-y-2.5">
+          <h3 className="text-xs font-bold text-[#123B5D] uppercase tracking-wider flex items-center gap-1.5">
+            <MapPin className="w-4 h-4 text-[#F4A340]" /> Titik Kumpul Keberangkatan
           </h3>
           <div className="space-y-1">
-            <p className="text-xs font-bold text-white">{trip.departureLocation.title}</p>
-            <p className="text-xs text-slate-300">{trip.departureLocation.address}</p>
+            <p className="text-xs font-bold text-[#172B3A]">{trip.departureLocation.title}</p>
+            <p className="text-xs text-[#7B8794]">{trip.departureLocation.address}</p>
             {trip.departureLocation.notes && (
-              <p className="text-[11px] text-emerald-400 bg-emerald-950/30 p-2 rounded-lg border border-emerald-800/40 mt-1">
+              <p className="text-[11px] text-[#123B5D] bg-[#EBF3F8] p-2.5 rounded-xl border border-[#2878A5]/20 mt-1">
                 ℹ️ {trip.departureLocation.notes}
               </p>
             )}
@@ -375,20 +374,20 @@ function TripDetailPage() {
 
         {/* 7. FASILITAS TERMASUK & TIDAK TERMASUK */}
         <div className="space-y-3 pt-1">
-          <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wider">
+          <h3 className="text-xs font-bold text-[#123B5D] uppercase tracking-wider">
             Fasilitas Paket
           </h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
             {/* Termasuk */}
-            <div className="p-3.5 rounded-2xl bg-emerald-950/20 border border-emerald-800/40 space-y-2">
-              <span className="font-bold text-emerald-300 flex items-center gap-1.5 text-xs">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" /> Sudah Termasuk:
+            <div className="p-4 rounded-2xl bg-emerald-50/60 border border-[#2E9D70]/30 space-y-2">
+              <span className="font-bold text-[#2E9D70] flex items-center gap-1.5 text-xs">
+                <CheckCircle2 className="w-4 h-4 text-[#2E9D70]" /> Sudah Termasuk:
               </span>
-              <ul className="space-y-1.5 text-[11px] text-slate-200">
+              <ul className="space-y-1.5 text-[11px] text-[#172B3A]">
                 {trip.facilitiesIncluded.map((item, i) => (
                   <li key={i} className="flex items-start gap-1.5">
-                    <span className="text-emerald-400 font-bold">✓</span>
+                    <span className="text-[#2E9D70] font-bold">✓</span>
                     <span>{item}</span>
                   </li>
                 ))}
@@ -396,14 +395,14 @@ function TripDetailPage() {
             </div>
 
             {/* Tidak Termasuk */}
-            <div className="p-3.5 rounded-2xl bg-rose-950/20 border border-rose-800/40 space-y-2">
-              <span className="font-bold text-rose-300 flex items-center gap-1.5 text-xs">
-                <XCircle className="w-4 h-4 text-rose-400" /> Belum Termasuk:
+            <div className="p-4 rounded-2xl bg-rose-50/60 border border-[#D9534F]/30 space-y-2">
+              <span className="font-bold text-[#D9534F] flex items-center gap-1.5 text-xs">
+                <XCircle className="w-4 h-4 text-[#D9534F]" /> Belum Termasuk:
               </span>
-              <ul className="space-y-1.5 text-[11px] text-slate-200">
+              <ul className="space-y-1.5 text-[11px] text-[#172B3A]">
                 {trip.facilitiesExcluded.map((item, i) => (
                   <li key={i} className="flex items-start gap-1.5">
-                    <span className="text-rose-400 font-bold">✕</span>
+                    <span className="text-[#D9534F] font-bold">✕</span>
                     <span>{item}</span>
                   </li>
                 ))}
@@ -413,14 +412,14 @@ function TripDetailPage() {
         </div>
 
         {/* 8. KEBIJAKAN PEMBATALAN */}
-        <div className="p-3.5 rounded-2xl bg-slate-800/40 border border-slate-800 space-y-2 text-xs">
-          <h3 className="font-bold text-slate-200 flex items-center gap-1.5">
-            <ShieldCheck className="w-4 h-4 text-emerald-400" /> Kebijakan Pembatalan & Pengembalian Dana
+        <div className="p-4 rounded-2xl bg-white border border-[#E7ECF0] shadow-sm space-y-2 text-xs">
+          <h3 className="font-bold text-[#172B3A] flex items-center gap-1.5">
+            <ShieldCheck className="w-4 h-4 text-[#2E9D70]" /> Kebijakan Pembatalan & Pengembalian Dana
           </h3>
-          <p className="text-[11px] text-slate-400 leading-relaxed">
+          <p className="text-[11px] text-[#7B8794] leading-relaxed">
             {trip.cancellationPolicy.summary}
           </p>
-          <ul className="space-y-1 text-[11px] text-slate-300 pl-4 list-disc">
+          <ul className="space-y-1 text-[11px] text-[#172B3A] pl-4 list-disc">
             {trip.cancellationPolicy.rules.map((rule, idx) => (
               <li key={idx}>{rule}</li>
             ))}
@@ -428,38 +427,38 @@ function TripDetailPage() {
         </div>
 
         {/* 9. RATING & ULASAN WISATAWAN */}
-        <div className="space-y-3 pt-2">
+        <div className="space-y-3 pt-1">
           <div className="flex items-center justify-between">
-            <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
-              <Star className="w-4 h-4 text-amber-400 fill-amber-400" /> Ulasan Wisatawan ({trip.reviewsCount})
+            <h3 className="text-xs font-bold text-[#123B5D] uppercase tracking-wider flex items-center gap-1.5">
+              <Star className="w-4 h-4 text-[#F4A340] fill-[#F4A340]" /> Ulasan Wisatawan ({trip.reviewsCount})
             </h3>
-            <span className="text-xs font-bold text-amber-400">{trip.rating.toFixed(1)} / 5.0</span>
+            <span className="text-xs font-bold text-[#F4A340]">{trip.rating.toFixed(1)} / 5.0</span>
           </div>
 
           {trip.reviews && trip.reviews.length > 0 ? (
             <div className="space-y-2.5">
               {trip.reviews.map((rev) => (
-                <div key={rev.id} className="p-3 rounded-xl bg-slate-800/40 border border-slate-800 space-y-1.5">
+                <div key={rev.id} className="p-3.5 rounded-2xl bg-white border border-[#E7ECF0] shadow-xs space-y-1.5">
                   <div className="flex items-center justify-between text-xs">
                     <div className="flex items-center gap-2">
                       <img src={rev.userAvatar} alt="" className="w-6 h-6 rounded-full object-cover" />
-                      <span className="font-bold text-white">{rev.userName}</span>
+                      <span className="font-bold text-[#172B3A]">{rev.userName}</span>
                     </div>
-                    <span className="text-[10px] text-slate-400">{rev.date}</span>
+                    <span className="text-[10px] text-[#7B8794]">{rev.date}</span>
                   </div>
 
-                  <div className="flex items-center gap-1 text-amber-400">
+                  <div className="flex items-center gap-1 text-[#F4A340]">
                     {Array.from({ length: rev.rating }).map((_, i) => (
-                      <Star key={i} className="w-3 h-3 fill-amber-400" />
+                      <Star key={i} className="w-3 h-3 fill-[#F4A340]" />
                     ))}
                   </div>
 
-                  <p className="text-xs text-slate-300 leading-relaxed">{rev.comment}</p>
+                  <p className="text-xs text-[#172B3A] leading-relaxed">{rev.comment}</p>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-xs text-slate-400 text-center py-3 bg-slate-800/30 rounded-xl">
+            <p className="text-xs text-[#7B8794] text-center py-4 bg-white rounded-2xl border border-[#E7ECF0]">
               Belum ada ulasan untuk trip ini. Jadilah yang pertama memberikan ulasan setelah perjalanan!
             </p>
           )}
@@ -468,18 +467,18 @@ function TripDetailPage() {
       </div>
 
       {/* 10. STICKY BOTTOM ACTION BAR (BOOKING BUTTON) */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 max-w-md mx-auto bg-slate-900/95 backdrop-blur-xl border-t border-slate-800 px-4 py-3 flex items-center justify-between shadow-2xl safe-area-bottom">
+      <div className="fixed bottom-0 left-0 right-0 z-40 max-w-md mx-auto bg-white/95 backdrop-blur-xl border-t border-[#E7ECF0] px-4 py-3 flex items-center justify-between travel-floating-shadow safe-area-bottom">
         <div>
           {trip.originalPrice && (
-            <span className="text-[10px] text-slate-500 line-through block">
+            <span className="text-[10px] text-[#7B8794] line-through block">
               Rp {trip.originalPrice.toLocaleString('id-ID')}
             </span>
           )}
           <div className="flex items-baseline gap-1">
-            <span className="text-lg font-black text-emerald-400">
+            <span className="text-lg font-black text-[#123B5D]">
               Rp {trip.price.toLocaleString('id-ID')}
             </span>
-            <span className="text-[10px] text-slate-400">/ orang</span>
+            <span className="text-[10px] text-[#7B8794]">/ orang</span>
           </div>
         </div>
 
@@ -489,7 +488,7 @@ function TripDetailPage() {
           className="flex-1 max-w-[200px]"
         >
           <Button
-            className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-slate-950 font-black text-xs h-11 rounded-xl shadow-lg shadow-emerald-500/25"
+            className="w-full bg-[#123B5D] hover:bg-[#0e2f4a] text-white font-black text-xs h-11 rounded-xl shadow-md transition-all"
           >
             Pesan Sekarang
           </Button>

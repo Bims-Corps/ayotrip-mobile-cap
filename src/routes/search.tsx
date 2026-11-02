@@ -22,14 +22,9 @@ import {
   MapPin, 
   Star, 
   Clock, 
-  CalendarDays, 
   ArrowUpDown, 
   X, 
   Compass, 
-  Sparkles, 
-  Check, 
-  CheckCircle2, 
-  ChevronRight,
   RotateCcw
 } from 'lucide-react'
 
@@ -111,14 +106,14 @@ function SearchExplorePage() {
   }
 
   return (
-    <div className="p-4 space-y-4">
+    <div className="p-4 space-y-4 bg-[#F7F9FC]">
       {/* Search Header Bar */}
-      <div className="space-y-2">
-        <h1 className="text-lg font-bold text-white flex items-center gap-2">
-          <Compass className="w-5 h-5 text-emerald-400" />
+      <div className="space-y-1.5">
+        <h1 className="text-lg font-bold text-[#172B3A] flex items-center gap-2">
+          <Compass className="w-5 h-5 text-[#123B5D]" />
           Eksplorasi & Pencarian Wisata
         </h1>
-        <p className="text-xs text-slate-400">
+        <p className="text-xs text-[#7B8794]">
           Temukan liburan impian nusantara sesuai anggaran dan titik keberangkatan Anda.
         </p>
       </div>
@@ -126,17 +121,18 @@ function SearchExplorePage() {
       {/* Main Search Input & Filter Button */}
       <div className="flex items-center gap-2">
         <div className="relative flex-1">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#7B8794]" />
           <Input
             placeholder="Cari destinasi, kota, atau nama trip..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="pl-10 pr-9 bg-slate-800/90 border-slate-700 text-white placeholder:text-slate-400 focus-visible:ring-emerald-500 rounded-xl text-xs h-10 shadow-sm"
+            className="pl-10 pr-9 bg-white border-[#E7ECF0] text-[#172B3A] placeholder:text-[#7B8794] focus-visible:ring-[#123B5D] rounded-xl text-xs h-11 shadow-sm"
           />
           {query && (
             <button
               onClick={() => setQuery('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-[#7B8794] hover:text-[#172B3A]"
+              aria-label="Hapus pencarian"
             >
               <X className="w-3.5 h-3.5" />
             </button>
@@ -147,14 +143,14 @@ function SearchExplorePage() {
         <Button
           variant="outline"
           onClick={() => setIsFilterSheetOpen(true)}
-          className={`h-10 px-3 shrink-0 rounded-xl border border-slate-700 bg-slate-800/90 text-slate-200 hover:bg-slate-700 text-xs font-semibold gap-1.5 relative ${
-            activeFiltersCount > 0 ? 'border-emerald-500 text-emerald-400 bg-emerald-950/20' : ''
+          className={`h-11 px-3.5 shrink-0 rounded-xl border border-[#E7ECF0] bg-white text-[#172B3A] hover:bg-[#F7F9FC] text-xs font-bold gap-1.5 shadow-sm relative ${
+            activeFiltersCount > 0 ? 'border-[#123B5D] text-[#123B5D] bg-[#EBF3F8]' : ''
           }`}
         >
           <SlidersHorizontal className="w-4 h-4" />
           <span>Filter</span>
           {activeFiltersCount > 0 && (
-            <span className="w-4 h-4 bg-emerald-500 text-slate-950 font-bold rounded-full text-[10px] flex items-center justify-center ml-0.5">
+            <span className="w-4 h-4 bg-[#F4A340] text-slate-950 font-bold rounded-full text-[10px] flex items-center justify-center ml-0.5">
               {activeFiltersCount}
             </span>
           )}
@@ -169,10 +165,10 @@ function SearchExplorePage() {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
                 isActive
-                  ? 'bg-emerald-500 text-slate-950 font-bold shadow-md shadow-emerald-500/20'
-                  : 'bg-slate-800/70 text-slate-300 hover:bg-slate-700 border border-slate-700/60'
+                  ? 'bg-[#123B5D] text-white shadow-sm'
+                  : 'bg-white text-[#7B8794] hover:text-[#172B3A] border border-[#E7ECF0] shadow-xs'
               }`}
             >
               {cat === 'All' ? 'Semua Kategori' : cat}
@@ -182,19 +178,19 @@ function SearchExplorePage() {
       </div>
 
       {/* Sorting & Filter Quick Status Row */}
-      <div className="flex items-center justify-between text-xs pt-1 border-t border-slate-800/80">
-        <div className="flex items-center gap-1.5 text-slate-400">
-          <span className="font-semibold text-slate-200">{trips.length}</span> Paket Ditemukan
-          {isFetching && <span className="text-[10px] text-emerald-400 animate-pulse">(memperbarui...)</span>}
+      <div className="flex items-center justify-between text-xs pt-1 border-t border-[#E7ECF0]">
+        <div className="flex items-center gap-1.5 text-[#7B8794]">
+          <span className="font-bold text-[#172B3A]">{trips.length}</span> Paket Ditemukan
+          {isFetching && <span className="text-[10px] text-[#2878A5] animate-pulse">(memperbarui...)</span>}
         </div>
 
         {/* Sorting Dropdown Selector */}
-        <div className="flex items-center gap-1">
-          <ArrowUpDown className="w-3.5 h-3.5 text-slate-400" />
+        <div className="flex items-center gap-1.5">
+          <ArrowUpDown className="w-3.5 h-3.5 text-[#7B8794]" />
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as any)}
-            className="bg-slate-800 text-[11px] font-semibold text-slate-200 border border-slate-700 rounded-lg px-2 py-1 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            className="bg-white text-[11px] font-bold text-[#172B3A] border border-[#E7ECF0] rounded-xl px-2.5 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#123B5D] shadow-xs"
           >
             {SORT_OPTIONS.map((opt) => (
               <option key={opt.val} value={opt.val}>
@@ -209,32 +205,32 @@ function SearchExplorePage() {
       {activeFiltersCount > 0 && (
         <div className="flex items-center gap-1.5 flex-wrap text-[11px]">
           {selectedCategory !== 'All' && (
-            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#EBF3F8] text-[#123B5D] border border-[#2878A5]/25 font-medium">
               Kategori: {selectedCategory}
               <button onClick={() => setSelectedCategory('All')}><X className="w-3 h-3" /></button>
             </span>
           )}
           {selectedCity !== 'Semua Kota' && (
-            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-teal-500/15 text-teal-300 border border-teal-500/30">
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#EBF3F8] text-[#123B5D] border border-[#2878A5]/25 font-medium">
               Dari: {selectedCity}
               <button onClick={() => setSelectedCity('Semua Kota')}><X className="w-3 h-3" /></button>
             </span>
           )}
           {selectedDuration > 0 && (
-            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#EBF3F8] text-[#123B5D] border border-[#2878A5]/25 font-medium">
               {DURATION_OPTIONS.find((d) => d.val === selectedDuration)?.label}
               <button onClick={() => setSelectedDuration(0)}><X className="w-3 h-3" /></button>
             </span>
           )}
           {(minPrice || maxPrice) && (
-            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30">
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#FFF7ED] text-[#F4A340] border border-[#F4A340]/30 font-medium">
               Budget: {minPrice ? `Rp ${(minPrice/1000).toLocaleString('id-ID')}k` : '0'} - {maxPrice ? `Rp ${(maxPrice/1000).toLocaleString('id-ID')}k` : 'Max'}
               <button onClick={() => { setMinPrice(undefined); setMaxPrice(undefined); }}><X className="w-3 h-3" /></button>
             </span>
           )}
           <button
             onClick={resetAllFilters}
-            className="text-xs text-rose-400 hover:underline flex items-center gap-1 ml-1"
+            className="text-xs text-[#D9534F] hover:underline flex items-center gap-1 ml-1 font-bold"
           >
             <RotateCcw className="w-3 h-3" /> Reset
           </button>
@@ -245,11 +241,11 @@ function SearchExplorePage() {
       {isLoading ? (
         <div className="space-y-3">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="p-3 bg-slate-800/60 rounded-xl space-y-3 border border-slate-700/60">
-              <Skeleton className="h-36 w-full rounded-lg bg-slate-700/60" />
+            <div key={i} className="p-3 bg-white rounded-2xl space-y-3 border border-[#E7ECF0]">
+              <Skeleton className="h-36 w-full rounded-xl bg-[#E7ECF0]" />
               <div className="space-y-2">
-                <Skeleton className="h-4 w-3/4 bg-slate-700/60" />
-                <Skeleton className="h-3 w-1/2 bg-slate-700/60" />
+                <Skeleton className="h-4 w-3/4 bg-[#E7ECF0]" />
+                <Skeleton className="h-3 w-1/2 bg-[#E7ECF0]" />
               </div>
             </div>
           ))}
@@ -263,32 +259,32 @@ function SearchExplorePage() {
               params={{ tripId: trip.id }}
               className="block group"
             >
-              <Card className="overflow-hidden border-slate-800 bg-slate-800/50 hover:border-emerald-500/50 transition-all shadow-md group-hover:shadow-emerald-950/20">
+              <Card className="overflow-hidden border-[#E7ECF0] bg-white hover:border-[#2878A5]/40 transition-all shadow-sm hover:shadow-md rounded-2xl">
                 <div className="flex flex-col sm:flex-row">
                   {/* Thumbnail Image */}
-                  <div className="relative h-40 sm:h-auto sm:w-44 shrink-0 overflow-hidden bg-slate-900">
+                  <div className="relative h-40 sm:h-auto sm:w-44 shrink-0 overflow-hidden bg-[#F7F9FC]">
                     <img
                       src={trip.imageUrl}
                       alt={trip.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent sm:hidden" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent sm:hidden" />
 
                     <div className="absolute top-2 left-2 flex items-center gap-1">
-                      <Badge className="bg-slate-900/80 backdrop-blur-md text-emerald-400 border-none text-[10px] font-bold">
+                      <Badge className="bg-white/90 backdrop-blur-md text-[#123B5D] border border-[#E7ECF0] text-[10px] font-bold shadow-xs">
                         {trip.category}
                       </Badge>
                       {trip.packageType && (
-                        <Badge className="bg-teal-950/80 text-teal-300 border-teal-700/60 text-[9px]">
+                        <Badge className="bg-[#123B5D]/85 text-white border-none text-[9px]">
                           {trip.packageType}
                         </Badge>
                       )}
                     </div>
 
                     <div className="absolute top-2 right-2">
-                      <div className="flex items-center gap-1 bg-slate-900/80 backdrop-blur-md px-2 py-0.5 rounded-full text-amber-400 text-[11px] font-bold">
-                        <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+                      <div className="flex items-center gap-1 bg-white/95 backdrop-blur-md px-2 py-0.5 rounded-full text-[#172B3A] text-[11px] font-bold shadow-xs border border-[#E7ECF0]">
+                        <Star className="w-3 h-3 fill-[#F4A340] text-[#F4A340]" />
                         <span>{trip.rating.toFixed(1)}</span>
                       </div>
                     </div>
@@ -297,47 +293,47 @@ function SearchExplorePage() {
                   {/* Content Details */}
                   <CardContent className="p-3.5 flex-1 flex flex-col justify-between space-y-2">
                     <div className="space-y-1">
-                      <div className="flex items-center gap-1.5 text-[11px] text-slate-400">
-                        <MapPin className="w-3 h-3 text-emerald-400 shrink-0" />
+                      <div className="flex items-center gap-1.5 text-[11px] text-[#7B8794]">
+                        <MapPin className="w-3 h-3 text-[#F4A340] shrink-0" />
                         <span className="truncate">{trip.destination}, {trip.province}</span>
-                        <span className="text-slate-600">•</span>
-                        <span className="flex items-center gap-0.5 text-slate-300">
-                          <Clock className="w-3 h-3 text-teal-400" /> {trip.duration}
+                        <span className="text-[#E7ECF0]">•</span>
+                        <span className="flex items-center gap-0.5 text-[#172B3A] font-medium">
+                          <Clock className="w-3 h-3 text-[#2878A5]" /> {trip.duration}
                         </span>
                       </div>
 
-                      <h3 className="font-bold text-white text-sm leading-snug group-hover:text-emerald-400 transition-colors line-clamp-1">
+                      <h3 className="font-bold text-[#172B3A] text-sm leading-snug group-hover:text-[#2878A5] transition-colors line-clamp-1">
                         {trip.title}
                       </h3>
 
-                      <p className="text-[11px] text-slate-400 line-clamp-2">
+                      <p className="text-[11px] text-[#7B8794] line-clamp-2">
                         {trip.description}
                       </p>
                     </div>
 
                     {/* Departure info & Vendor */}
-                    <div className="flex items-center justify-between text-[10px] text-slate-400 pt-1 border-t border-slate-800">
-                      <span>Berangkat: <strong className="text-slate-300">{trip.departureCity}</strong></span>
-                      <span className="text-emerald-400/90 font-medium">{trip.vendor?.name}</span>
+                    <div className="flex items-center justify-between text-[10px] text-[#7B8794] pt-2 border-t border-[#E7ECF0]">
+                      <span>Berangkat: <strong className="text-[#172B3A]">{trip.departureCity}</strong></span>
+                      <span className="text-[#2878A5] font-semibold">{trip.vendor?.name}</span>
                     </div>
 
                     {/* Price and CTA */}
                     <div className="flex items-end justify-between pt-1">
                       <div>
                         {trip.originalPrice && (
-                          <span className="text-[10px] text-slate-500 line-through block">
+                          <span className="text-[10px] text-[#7B8794] line-through block">
                             Rp {trip.originalPrice.toLocaleString('id-ID')}
                           </span>
                         )}
                         <div className="flex items-baseline gap-1">
-                          <span className="text-sm font-black text-emerald-400">
+                          <span className="text-sm font-black text-[#123B5D]">
                             Rp {trip.price.toLocaleString('id-ID')}
                           </span>
-                          <span className="text-[10px] text-slate-400">/pax</span>
+                          <span className="text-[10px] text-[#7B8794]">/pax</span>
                         </div>
                       </div>
 
-                      <Button size="sm" className="h-8 px-3 text-xs bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-lg shadow-sm">
+                      <Button size="sm" className="h-8 px-3.5 text-xs bg-[#123B5D] hover:bg-[#0e2f4a] text-white font-bold rounded-xl shadow-sm">
                         Lihat Paket
                       </Button>
                     </div>
@@ -348,17 +344,17 @@ function SearchExplorePage() {
           ))}
         </div>
       ) : (
-        <div className="p-8 text-center bg-slate-800/40 rounded-2xl border border-slate-800 space-y-3">
-          <Compass className="w-10 h-10 text-slate-500 mx-auto" />
-          <h4 className="text-sm font-bold text-slate-200">Tidak Ada Wisata yang Cocok</h4>
-          <p className="text-xs text-slate-400">
+        <div className="p-8 text-center bg-white rounded-2xl border border-[#E7ECF0] space-y-3 shadow-sm">
+          <Compass className="w-10 h-10 text-[#7B8794] mx-auto" />
+          <h4 className="text-sm font-bold text-[#172B3A]">Tidak Ada Wisata yang Cocok</h4>
+          <p className="text-xs text-[#7B8794]">
             Tidak ditemukan paket wisata yang sesuai dengan filter harga atau kriteria Anda.
           </p>
           <Button
             variant="outline"
             size="sm"
             onClick={resetAllFilters}
-            className="text-xs border-slate-700 text-emerald-400 hover:bg-slate-800"
+            className="text-xs border-[#E7ECF0] text-[#123B5D] hover:bg-[#F7F9FC] rounded-xl"
           >
             Reset Semua Filter
           </Button>
@@ -367,25 +363,25 @@ function SearchExplorePage() {
 
       {/* FILTER BOTTOM SHEET */}
       <Sheet open={isFilterSheetOpen} onOpenChange={setIsFilterSheetOpen}>
-        <SheetContent side="bottom" className="bg-slate-900 border-t border-slate-800 text-slate-100 max-w-md mx-auto rounded-t-3xl max-h-[85vh] overflow-y-auto">
-          <SheetHeader className="pb-3 border-b border-slate-800">
-            <SheetTitle className="text-base font-bold text-white flex items-center gap-2">
-              <SlidersHorizontal className="w-4 h-4 text-emerald-400" />
+        <SheetContent side="bottom" className="bg-white border-t border-[#E7ECF0] text-[#172B3A] max-w-md mx-auto rounded-t-3xl max-h-[85vh] overflow-y-auto shadow-2xl">
+          <SheetHeader className="pb-3 border-b border-[#E7ECF0]">
+            <SheetTitle className="text-base font-bold text-[#172B3A] flex items-center gap-2">
+              <SlidersHorizontal className="w-4 h-4 text-[#123B5D]" />
               Filter & Pengurutan Wisata
             </SheetTitle>
-            <SheetDescription className="text-xs text-slate-400">
+            <SheetDescription className="text-xs text-[#7B8794]">
               Sesuaikan anggaran, durasi, dan titik keberangkatan liburan Anda.
             </SheetDescription>
           </SheetHeader>
 
-          <div className="space-y-4 py-3 text-xs">
+          <div className="space-y-4 py-4 text-xs">
             {/* Titik Keberangkatan */}
             <div className="space-y-1.5">
-              <label className="font-bold text-slate-200 block">Titik Keberangkatan</label>
+              <label className="font-bold text-[#172B3A] block">Titik Keberangkatan</label>
               <select
                 value={selectedCity}
                 onChange={(e) => setSelectedCity(e.target.value)}
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-slate-200 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                className="w-full bg-[#F7F9FC] border border-[#E7ECF0] rounded-xl px-3 py-2 text-[#172B3A] focus:outline-none focus:ring-1 focus:ring-[#123B5D]"
               >
                 {DEPARTURE_CITIES.map((city) => (
                   <option key={city} value={city}>
@@ -397,7 +393,7 @@ function SearchExplorePage() {
 
             {/* Durasi Perjalanan */}
             <div className="space-y-1.5">
-              <label className="font-bold text-slate-200 block">Durasi Perjalanan</label>
+              <label className="font-bold text-[#172B3A] block">Durasi Perjalanan</label>
               <div className="grid grid-cols-2 gap-2">
                 {DURATION_OPTIONS.map((dur) => (
                   <button
@@ -405,8 +401,8 @@ function SearchExplorePage() {
                     onClick={() => setSelectedDuration(dur.val)}
                     className={`py-2 px-2.5 rounded-xl border text-left transition-all ${
                       selectedDuration === dur.val
-                        ? 'bg-emerald-500/20 border-emerald-500 text-emerald-300 font-bold'
-                        : 'bg-slate-800/70 border-slate-700/60 text-slate-300'
+                        ? 'bg-[#EBF3F8] border-2 border-[#123B5D] text-[#123B5D] font-bold'
+                        : 'bg-[#F7F9FC] border-[#E7ECF0] text-[#172B3A]'
                     }`}
                   >
                     {dur.label}
@@ -417,26 +413,26 @@ function SearchExplorePage() {
 
             {/* Filter Rentang Harga */}
             <div className="space-y-2">
-              <label className="font-bold text-slate-200 block">Rentang Harga (IDR)</label>
+              <label className="font-bold text-[#172B3A] block">Rentang Harga (IDR)</label>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <span className="text-[10px] text-slate-400 block mb-1">Min (IDR)</span>
+                  <span className="text-[10px] text-[#7B8794] block mb-1">Min (IDR)</span>
                   <Input
                     type="number"
                     placeholder="0"
                     value={minPrice || ''}
                     onChange={(e) => setMinPrice(e.target.value ? Number(e.target.value) : undefined)}
-                    className="bg-slate-800 border-slate-700 text-xs h-9 rounded-xl"
+                    className="bg-[#F7F9FC] border-[#E7ECF0] text-[#172B3A] text-xs h-10 rounded-xl"
                   />
                 </div>
                 <div>
-                  <span className="text-[10px] text-slate-400 block mb-1">Maks (IDR)</span>
+                  <span className="text-[10px] text-[#7B8794] block mb-1">Maks (IDR)</span>
                   <Input
                     type="number"
                     placeholder="10000000"
                     value={maxPrice || ''}
                     onChange={(e) => setMaxPrice(e.target.value ? Number(e.target.value) : undefined)}
-                    className="bg-slate-800 border-slate-700 text-xs h-9 rounded-xl"
+                    className="bg-[#F7F9FC] border-[#E7ECF0] text-[#172B3A] text-xs h-10 rounded-xl"
                   />
                 </div>
               </div>
@@ -455,7 +451,7 @@ function SearchExplorePage() {
                       setMinPrice(preset.min)
                       setMaxPrice(preset.max)
                     }}
-                    className="px-2.5 py-1 rounded-lg bg-slate-800 border border-slate-700 text-[11px] whitespace-nowrap text-slate-300 hover:border-emerald-500"
+                    className="px-2.5 py-1 rounded-lg bg-[#F7F9FC] border border-[#E7ECF0] text-[11px] whitespace-nowrap text-[#172B3A] hover:border-[#123B5D]"
                   >
                     {preset.label}
                   </button>
@@ -465,29 +461,29 @@ function SearchExplorePage() {
 
             {/* Filter Tanggal Keberangkatan */}
             <div className="space-y-1.5">
-              <label className="font-bold text-slate-200 block">Tanggal Keberangkatan</label>
+              <label className="font-bold text-[#172B3A] block">Tanggal Keberangkatan</label>
               <Input
                 type="date"
                 value={departureDate}
                 onChange={(e) => setDepartureDate(e.target.value)}
-                className="bg-slate-800 border-slate-700 text-xs h-9 rounded-xl text-white"
+                className="bg-[#F7F9FC] border-[#E7ECF0] text-xs h-10 rounded-xl text-[#172B3A]"
               />
             </div>
           </div>
 
-          <SheetFooter className="flex flex-row items-center gap-2 pt-3 border-t border-slate-800">
+          <SheetFooter className="flex flex-row items-center gap-2 pt-3 border-t border-[#E7ECF0]">
             <Button
               variant="outline"
               size="sm"
               onClick={resetAllFilters}
-              className="flex-1 text-xs border-slate-700 text-slate-300 hover:bg-slate-800 h-10 rounded-xl"
+              className="flex-1 text-xs border-[#E7ECF0] text-[#7B8794] hover:bg-[#F7F9FC] h-11 rounded-xl"
             >
               Reset Filter
             </Button>
             <SheetClose asChild>
               <Button
                 size="sm"
-                className="flex-1 text-xs bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold h-10 rounded-xl shadow-lg shadow-emerald-500/20"
+                className="flex-1 text-xs bg-[#123B5D] hover:bg-[#0e2f4a] text-white font-bold h-11 rounded-xl shadow-md"
               >
                 Terapkan ({trips.length} Hasil)
               </Button>
@@ -498,4 +494,3 @@ function SearchExplorePage() {
     </div>
   )
 }
-

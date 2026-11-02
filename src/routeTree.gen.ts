@@ -13,10 +13,12 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as BookingsRouteImport } from './routes/bookings'
 import { Route as CreateRouteImport } from './routes/create'
+import { Route as EventsRouteImport } from './routes/events'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as WishlistRouteImport } from './routes/wishlist'
 import { Route as BookingTripIdRouteImport } from './routes/booking.$tripId'
+import { Route as EventsEventIdRouteImport } from './routes/events.$eventId'
 import { Route as TripsTripIdRouteImport } from './routes/trips.$tripId'
 
 const IndexRoute = IndexRouteImport.update({
@@ -39,6 +41,11 @@ const CreateRoute = CreateRouteImport.update({
   path: '/create',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EventsRoute = EventsRouteImport.update({
+  id: '/events',
+  path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProfileRoute = ProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
@@ -59,6 +66,11 @@ const BookingTripIdRoute = BookingTripIdRouteImport.update({
   path: '/booking/$tripId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EventsEventIdRoute = EventsEventIdRouteImport.update({
+  id: '/$eventId',
+  path: '/$eventId',
+  getParentRoute: () => EventsRoute,
+} as any)
 const TripsTripIdRoute = TripsTripIdRouteImport.update({
   id: '/trips/$tripId',
   path: '/trips/$tripId',
@@ -70,10 +82,12 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/bookings': typeof BookingsRoute
   '/create': typeof CreateRoute
+  '/events': typeof EventsRouteWithChildren
   '/profile': typeof ProfileRoute
   '/search': typeof SearchRoute
   '/wishlist': typeof WishlistRoute
   '/booking/$tripId': typeof BookingTripIdRoute
+  '/events/$eventId': typeof EventsEventIdRoute
   '/trips/$tripId': typeof TripsTripIdRoute
 }
 export interface FileRoutesByTo {
@@ -81,10 +95,12 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/bookings': typeof BookingsRoute
   '/create': typeof CreateRoute
+  '/events': typeof EventsRouteWithChildren
   '/profile': typeof ProfileRoute
   '/search': typeof SearchRoute
   '/wishlist': typeof WishlistRoute
   '/booking/$tripId': typeof BookingTripIdRoute
+  '/events/$eventId': typeof EventsEventIdRoute
   '/trips/$tripId': typeof TripsTripIdRoute
 }
 export interface FileRoutesById {
@@ -93,10 +109,12 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/bookings': typeof BookingsRoute
   '/create': typeof CreateRoute
+  '/events': typeof EventsRouteWithChildren
   '/profile': typeof ProfileRoute
   '/search': typeof SearchRoute
   '/wishlist': typeof WishlistRoute
   '/booking/$tripId': typeof BookingTripIdRoute
+  '/events/$eventId': typeof EventsEventIdRoute
   '/trips/$tripId': typeof TripsTripIdRoute
 }
 export interface FileRouteTypes {
@@ -106,10 +124,12 @@ export interface FileRouteTypes {
     | '/about'
     | '/bookings'
     | '/create'
+    | '/events'
     | '/profile'
     | '/search'
     | '/wishlist'
     | '/booking/$tripId'
+    | '/events/$eventId'
     | '/trips/$tripId'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -117,10 +137,12 @@ export interface FileRouteTypes {
     | '/about'
     | '/bookings'
     | '/create'
+    | '/events'
     | '/profile'
     | '/search'
     | '/wishlist'
     | '/booking/$tripId'
+    | '/events/$eventId'
     | '/trips/$tripId'
   id:
     | '__root__'
@@ -128,10 +150,12 @@ export interface FileRouteTypes {
     | '/about'
     | '/bookings'
     | '/create'
+    | '/events'
     | '/profile'
     | '/search'
     | '/wishlist'
     | '/booking/$tripId'
+    | '/events/$eventId'
     | '/trips/$tripId'
   fileRoutesById: FileRoutesById
 }
@@ -140,6 +164,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   BookingsRoute: typeof BookingsRoute
   CreateRoute: typeof CreateRoute
+  EventsRoute: typeof EventsRouteWithChildren
   ProfileRoute: typeof ProfileRoute
   SearchRoute: typeof SearchRoute
   WishlistRoute: typeof WishlistRoute
@@ -177,6 +202,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CreateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/events': {
+      id: '/events'
+      path: '/events'
+      fullPath: '/events'
+      preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/profile': {
       id: '/profile'
       path: '/profile'
@@ -205,6 +237,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BookingTripIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/events/$eventId': {
+      id: '/events/$eventId'
+      path: '/$eventId'
+      fullPath: '/events/$eventId'
+      preLoaderRoute: typeof EventsEventIdRouteImport
+      parentRoute: typeof EventsRoute
+    }
     '/trips/$tripId': {
       id: '/trips/$tripId'
       path: '/trips/$tripId'
@@ -215,11 +254,23 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface EventsRouteChildren {
+  EventsEventIdRoute: typeof EventsEventIdRoute
+}
+
+const EventsRouteChildren: EventsRouteChildren = {
+  EventsEventIdRoute: EventsEventIdRoute,
+}
+
+const EventsRouteWithChildren =
+  EventsRoute._addFileChildren(EventsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   BookingsRoute: BookingsRoute,
   CreateRoute: CreateRoute,
+  EventsRoute: EventsRouteWithChildren,
   ProfileRoute: ProfileRoute,
   SearchRoute: SearchRoute,
   WishlistRoute: WishlistRoute,

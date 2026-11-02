@@ -6,7 +6,6 @@ import { wishlistService } from '@/services/wishlistService'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Badge } from '@/components/ui/badge'
 import { 
   Dialog, 
   DialogContent, 
@@ -23,15 +22,12 @@ import {
   Award, 
   TicketCheck, 
   Heart, 
-  Settings, 
   ShieldCheck, 
-  HelpCircle, 
   LogOut, 
   Edit3, 
   Sparkles,
   ChevronRight,
-  LogIn,
-  UserPlus
+  LogIn
 } from 'lucide-react'
 
 export const Route = createFileRoute('/profile')({
@@ -128,14 +124,14 @@ function ProfilePage() {
   }
 
   return (
-    <div className="p-4 space-y-4 pb-20">
+    <div className="p-4 space-y-4 pb-20 bg-[#F7F9FC]">
       {/* 1. Profile Header Card */}
-      <div className="p-4 rounded-3xl bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700/80 space-y-3.5 shadow-xl relative overflow-hidden">
+      <div className="p-5 rounded-3xl bg-gradient-to-br from-[#123B5D] to-[#2878A5] text-white space-y-3.5 shadow-md relative overflow-hidden">
         <div className="flex items-center gap-3.5">
           <img
             src={user.avatar}
             alt={user.name}
-            className="w-16 h-16 rounded-2xl object-cover border-2 border-emerald-400/60 shadow-lg"
+            className="w-16 h-16 rounded-2xl object-cover border-2 border-white shadow-sm"
           />
           <div className="space-y-1 flex-1">
             <div className="flex items-center justify-between">
@@ -148,8 +144,9 @@ function ProfilePage() {
                     setEditEmail(user.email)
                     setIsEditProfileOpen(true)
                   }}
-                  className="p-1 text-slate-400 hover:text-emerald-400"
+                  className="p-1.5 rounded-full bg-white/20 text-white hover:bg-white/30 transition-colors"
                   title="Edit Profil"
+                  aria-label="Edit Profil"
                 >
                   <Edit3 className="w-4 h-4" />
                 </button>
@@ -157,30 +154,30 @@ function ProfilePage() {
                 <Button
                   size="sm"
                   onClick={() => setIsLoginModalOpen(true)}
-                  className="h-7 text-[10px] bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold"
+                  className="h-7 text-[10px] bg-[#F4A340] hover:bg-[#e09335] text-slate-950 font-bold rounded-lg"
                 >
                   Masuk / Daftar
                 </Button>
               )}
             </div>
 
-            <p className="text-xs text-slate-400 flex items-center gap-1.5">
-              <Mail className="w-3 h-3 text-slate-500" /> {user.email}
+            <p className="text-xs text-white/85 flex items-center gap-1.5">
+              <Mail className="w-3 h-3 text-white/70" /> {user.email}
             </p>
-            <p className="text-xs text-slate-400 flex items-center gap-1.5">
-              <Phone className="w-3 h-3 text-slate-500" /> {user.phone}
+            <p className="text-xs text-white/85 flex items-center gap-1.5">
+              <Phone className="w-3 h-3 text-white/70" /> {user.phone}
             </p>
           </div>
         </div>
 
         {/* Membership Tier & Points */}
-        <div className="pt-2 border-t border-slate-700/60 flex items-center justify-between text-xs">
+        <div className="pt-2.5 border-t border-white/20 flex items-center justify-between text-xs">
           <div className="flex items-center gap-1.5">
-            <Award className="w-4 h-4 text-amber-400" />
-            <span className="font-bold text-amber-300">{user.membershipTier}</span>
+            <Award className="w-4 h-4 text-[#F4A340]" />
+            <span className="font-bold text-white">{user.membershipTier}</span>
           </div>
-          <div className="flex items-center gap-1 font-mono text-[11px] text-emerald-400 bg-emerald-950/40 px-2 py-0.5 rounded-full border border-emerald-800/40">
-            <Sparkles className="w-3 h-3" />
+          <div className="flex items-center gap-1 text-[11px] font-bold text-[#123B5D] bg-white px-2.5 py-0.5 rounded-full shadow-xs">
+            <Sparkles className="w-3 h-3 text-[#F4A340]" />
             <span>{user.points} Poin Reward</span>
           </div>
         </div>
@@ -189,26 +186,26 @@ function ProfilePage() {
       {/* 2. Quick Activity Stats */}
       <div className="grid grid-cols-2 gap-2.5">
         <Link to="/bookings" className="block">
-          <Card className="bg-slate-800/50 border-slate-800 hover:border-slate-700 transition-all p-3 text-center space-y-1">
-            <TicketCheck className="w-5 h-5 text-emerald-400 mx-auto" />
-            <span className="text-[10px] text-slate-400 block">Riwayat Pesanan</span>
-            <span className="text-base font-bold text-white">{bookingsCount} Pesanan</span>
+          <Card className="bg-white border-[#E7ECF0] hover:border-[#2878A5]/40 transition-all p-3.5 text-center space-y-1 rounded-2xl shadow-sm">
+            <TicketCheck className="w-5 h-5 text-[#2878A5] mx-auto" />
+            <span className="text-[10px] text-[#7B8794] block">Riwayat Pesanan</span>
+            <span className="text-base font-bold text-[#172B3A]">{bookingsCount} Pesanan</span>
           </Card>
         </Link>
 
         <Link to="/wishlist" className="block">
-          <Card className="bg-slate-800/50 border-slate-800 hover:border-slate-700 transition-all p-3 text-center space-y-1">
-            <Heart className="w-5 h-5 text-rose-400 mx-auto" />
-            <span className="text-[10px] text-slate-400 block">Paket Favorit</span>
-            <span className="text-base font-bold text-white">{favoritesCount} Disimpan</span>
+          <Card className="bg-white border-[#E7ECF0] hover:border-[#2878A5]/40 transition-all p-3.5 text-center space-y-1 rounded-2xl shadow-sm">
+            <Heart className="w-5 h-5 text-[#D9534F] mx-auto" />
+            <span className="text-[10px] text-[#7B8794] block">Paket Favorit</span>
+            <span className="text-base font-bold text-[#172B3A]">{favoritesCount} Disimpan</span>
           </Card>
         </Link>
       </div>
 
       {/* 3. Account Settings Menu */}
-      <Card className="bg-slate-900 border-slate-800 text-slate-100 divide-y divide-slate-800/80">
-        <CardHeader className="py-2.5 px-4">
-          <CardTitle className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+      <Card className="bg-white border-[#E7ECF0] text-[#172B3A] divide-y divide-[#E7ECF0] rounded-2xl shadow-sm overflow-hidden">
+        <CardHeader className="py-2.5 px-4 bg-[#F7F9FC]/70">
+          <CardTitle className="text-xs font-bold text-[#7B8794] uppercase tracking-wider">
             Akun & Keamanan
           </CardTitle>
         </CardHeader>
@@ -220,46 +217,46 @@ function ProfilePage() {
               setEditEmail(user.email)
               setIsEditProfileOpen(true)
             }}
-            className="w-full flex items-center justify-between p-3.5 hover:bg-slate-800/60 transition-colors"
+            className="w-full flex items-center justify-between p-3.5 hover:bg-[#F7F9FC] transition-colors"
           >
             <div className="flex items-center gap-3">
-              <User className="w-4 h-4 text-emerald-400" />
-              <span>Edit Data Profil</span>
+              <User className="w-4 h-4 text-[#123B5D]" />
+              <span className="font-medium">Edit Data Profil</span>
             </div>
-            <ChevronRight className="w-4 h-4 text-slate-500" />
+            <ChevronRight className="w-4 h-4 text-[#7B8794]" />
           </button>
 
           <Link
             to="/bookings"
-            className="w-full flex items-center justify-between p-3.5 hover:bg-slate-800/60 transition-colors"
+            className="w-full flex items-center justify-between p-3.5 hover:bg-[#F7F9FC] transition-colors"
           >
             <div className="flex items-center gap-3">
-              <TicketCheck className="w-4 h-4 text-teal-400" />
-              <span>Tiket & Bukti Booking Aktif</span>
+              <TicketCheck className="w-4 h-4 text-[#2878A5]" />
+              <span className="font-medium">Tiket & Bukti Booking Aktif</span>
             </div>
-            <ChevronRight className="w-4 h-4 text-slate-500" />
+            <ChevronRight className="w-4 h-4 text-[#7B8794]" />
           </Link>
 
           <Link
             to="/wishlist"
-            className="w-full flex items-center justify-between p-3.5 hover:bg-slate-800/60 transition-colors"
+            className="w-full flex items-center justify-between p-3.5 hover:bg-[#F7F9FC] transition-colors"
           >
             <div className="flex items-center gap-3">
-              <Heart className="w-4 h-4 text-rose-400" />
-              <span>Daftar Paket Wisata Favorit</span>
+              <Heart className="w-4 h-4 text-[#D9534F]" />
+              <span className="font-medium">Daftar Paket Wisata Favorit</span>
             </div>
-            <ChevronRight className="w-4 h-4 text-slate-500" />
+            <ChevronRight className="w-4 h-4 text-[#7B8794]" />
           </Link>
 
           <Link
             to="/about"
-            className="w-full flex items-center justify-between p-3.5 hover:bg-slate-800/60 transition-colors"
+            className="w-full flex items-center justify-between p-3.5 hover:bg-[#F7F9FC] transition-colors"
           >
             <div className="flex items-center gap-3">
-              <ShieldCheck className="w-4 h-4 text-cyan-400" />
-              <span>Tentang Aplikasi & Spesifikasi Native</span>
+              <ShieldCheck className="w-4 h-4 text-[#2E9D70]" />
+              <span className="font-medium">Tentang Aplikasi & Spesifikasi Native</span>
             </div>
-            <ChevronRight className="w-4 h-4 text-slate-500" />
+            <ChevronRight className="w-4 h-4 text-[#7B8794]" />
           </Link>
         </CardContent>
       </Card>
@@ -269,7 +266,7 @@ function ProfilePage() {
         <Button
           variant="outline"
           onClick={handleLogout}
-          className="w-full h-11 border-rose-900/40 text-rose-400 hover:bg-rose-950/30 text-xs font-bold gap-2 rounded-xl"
+          className="w-full h-11 border-rose-200 text-[#D9534F] hover:bg-rose-50 text-xs font-bold gap-2 rounded-xl"
         >
           <LogOut className="w-4 h-4" />
           Keluar dari Akun
@@ -277,7 +274,7 @@ function ProfilePage() {
       ) : (
         <Button
           onClick={() => setIsLoginModalOpen(true)}
-          className="w-full h-11 bg-emerald-500 hover:bg-emerald-600 text-slate-950 text-xs font-bold gap-2 rounded-xl"
+          className="w-full h-11 bg-[#123B5D] hover:bg-[#0e2f4a] text-white text-xs font-bold gap-2 rounded-xl shadow-sm"
         >
           <LogIn className="w-4 h-4" />
           Masuk ke Akun AyoTrip
@@ -286,40 +283,40 @@ function ProfilePage() {
 
       {/* EDIT PROFILE DIALOG */}
       <Dialog open={isEditProfileOpen} onOpenChange={setIsEditProfileOpen}>
-        <DialogContent className="bg-slate-900 border-slate-700 text-slate-100 max-w-sm mx-auto rounded-3xl p-5">
-          <DialogHeader className="pb-2 border-b border-slate-800">
-            <DialogTitle className="text-base font-bold text-white">Edit Profil Pengguna</DialogTitle>
-            <DialogDescription className="text-xs text-slate-400">
+        <DialogContent className="bg-white border-[#E7ECF0] text-[#172B3A] max-w-sm mx-auto rounded-3xl p-5 shadow-2xl">
+          <DialogHeader className="pb-2 border-b border-[#E7ECF0]">
+            <DialogTitle className="text-base font-bold text-[#172B3A]">Edit Profil Pengguna</DialogTitle>
+            <DialogDescription className="text-xs text-[#7B8794]">
               Perbarui identitas kontak Anda untuk keperluan tiket perjalanan.
             </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-3 py-2 text-xs">
             <div className="space-y-1">
-              <label className="text-[11px] font-bold text-slate-300">Nama Lengkap</label>
+              <label className="text-[11px] font-bold text-[#172B3A]">Nama Lengkap</label>
               <Input
                 value={editName}
                 onChange={(e) => setEditName(e.target.value)}
-                className="bg-slate-800 border-slate-700 text-xs h-9 rounded-xl"
+                className="bg-[#F7F9FC] border-[#E7ECF0] text-xs h-10 rounded-xl text-[#172B3A]"
               />
             </div>
 
             <div className="space-y-1">
-              <label className="text-[11px] font-bold text-slate-300">Alamat Email</label>
+              <label className="text-[11px] font-bold text-[#172B3A]">Alamat Email</label>
               <Input
                 type="email"
                 value={editEmail}
                 onChange={(e) => setEditEmail(e.target.value)}
-                className="bg-slate-800 border-slate-700 text-xs h-9 rounded-xl"
+                className="bg-[#F7F9FC] border-[#E7ECF0] text-xs h-10 rounded-xl text-[#172B3A]"
               />
             </div>
 
             <div className="space-y-1">
-              <label className="text-[11px] font-bold text-slate-300">Nomor WhatsApp / HP</label>
+              <label className="text-[11px] font-bold text-[#172B3A]">Nomor WhatsApp / HP</label>
               <Input
                 value={editPhone}
                 onChange={(e) => setEditPhone(e.target.value)}
-                className="bg-slate-800 border-slate-700 text-xs h-9 rounded-xl"
+                className="bg-[#F7F9FC] border-[#E7ECF0] text-xs h-10 rounded-xl text-[#172B3A]"
               />
             </div>
           </div>
@@ -328,13 +325,13 @@ function ProfilePage() {
             <Button
               variant="outline"
               onClick={() => setIsEditProfileOpen(false)}
-              className="flex-1 text-xs border-slate-700 text-slate-300"
+              className="flex-1 text-xs border-[#E7ECF0] text-[#7B8794] rounded-xl hover:bg-[#F7F9FC]"
             >
               Batal
             </Button>
             <Button
               onClick={handleSaveProfile}
-              className="flex-1 text-xs bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold"
+              className="flex-1 text-xs bg-[#123B5D] hover:bg-[#0e2f4a] text-white font-bold rounded-xl"
             >
               Simpan Perubahan
             </Button>
@@ -344,12 +341,12 @@ function ProfilePage() {
 
       {/* LOGIN / REGISTER DIALOG */}
       <Dialog open={isLoginModalOpen} onOpenChange={setIsLoginModalOpen}>
-        <DialogContent className="bg-slate-900 border-slate-700 text-slate-100 max-w-sm mx-auto rounded-3xl p-5">
-          <DialogHeader className="pb-2 border-b border-slate-800">
-            <DialogTitle className="text-base font-bold text-white">
+        <DialogContent className="bg-white border-[#E7ECF0] text-[#172B3A] max-w-sm mx-auto rounded-3xl p-5 shadow-2xl">
+          <DialogHeader className="pb-2 border-b border-[#E7ECF0]">
+            <DialogTitle className="text-base font-bold text-[#172B3A]">
               {loginMode === 'login' ? 'Masuk ke AyoTrip' : 'Daftar Akun Baru'}
             </DialogTitle>
-            <DialogDescription className="text-xs text-slate-400">
+            <DialogDescription className="text-xs text-[#7B8794]">
               Nikmati kemudahan pesan paket wisata nusantara dan kumpulkan poin reward.
             </DialogDescription>
           </DialogHeader>
@@ -357,56 +354,56 @@ function ProfilePage() {
           <div className="space-y-3 py-2 text-xs">
             {loginMode === 'register' && (
               <div className="space-y-1">
-                <label className="text-[11px] font-bold text-slate-300">Nama Lengkap</label>
+                <label className="text-[11px] font-bold text-[#172B3A]">Nama Lengkap</label>
                 <Input
                   placeholder="Contoh: Rian Anggara"
                   value={authName}
                   onChange={(e) => setAuthName(e.target.value)}
-                  className="bg-slate-800 border-slate-700 text-xs h-9 rounded-xl"
+                  className="bg-[#F7F9FC] border-[#E7ECF0] text-xs h-10 rounded-xl text-[#172B3A]"
                 />
               </div>
             )}
 
             <div className="space-y-1">
-              <label className="text-[11px] font-bold text-slate-300">Alamat Email</label>
+              <label className="text-[11px] font-bold text-[#172B3A]">Alamat Email</label>
               <Input
                 type="email"
                 placeholder="nama@email.com"
                 value={authEmail}
                 onChange={(e) => setAuthEmail(e.target.value)}
-                className="bg-slate-800 border-slate-700 text-xs h-9 rounded-xl"
+                className="bg-[#F7F9FC] border-[#E7ECF0] text-xs h-10 rounded-xl text-[#172B3A]"
               />
             </div>
 
             {loginMode === 'register' && (
               <div className="space-y-1">
-                <label className="text-[11px] font-bold text-slate-300">Nomor WhatsApp / HP</label>
+                <label className="text-[11px] font-bold text-[#172B3A]">Nomor WhatsApp / HP</label>
                 <Input
                   placeholder="+62 8..."
                   value={authPhone}
                   onChange={(e) => setAuthPhone(e.target.value)}
-                  className="bg-slate-800 border-slate-700 text-xs h-9 rounded-xl"
+                  className="bg-[#F7F9FC] border-[#E7ECF0] text-xs h-10 rounded-xl text-[#172B3A]"
                 />
               </div>
             )}
 
             <div className="text-center pt-2">
               {loginMode === 'login' ? (
-                <p className="text-[11px] text-slate-400">
+                <p className="text-[11px] text-[#7B8794]">
                   Belum punya akun?{' '}
                   <button
                     onClick={() => setLoginMode('register')}
-                    className="text-emerald-400 font-bold hover:underline"
+                    className="text-[#123B5D] font-bold hover:underline"
                   >
                     Daftar di sini
                   </button>
                 </p>
               ) : (
-                <p className="text-[11px] text-slate-400">
+                <p className="text-[11px] text-[#7B8794]">
                   Sudah punya akun?{' '}
                   <button
                     onClick={() => setLoginMode('login')}
-                    className="text-emerald-400 font-bold hover:underline"
+                    className="text-[#123B5D] font-bold hover:underline"
                   >
                     Masuk di sini
                   </button>
@@ -418,7 +415,7 @@ function ProfilePage() {
           <DialogFooter className="pt-2">
             <Button
               onClick={handleAuthSubmit}
-              className="w-full text-xs bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold h-10 rounded-xl"
+              className="w-full text-xs bg-[#123B5D] hover:bg-[#0e2f4a] text-white font-bold h-11 rounded-xl shadow-md"
             >
               {loginMode === 'login' ? 'Masuk Sekarang' : 'Daftar Sekarang'}
             </Button>
@@ -428,4 +425,3 @@ function ProfilePage() {
     </div>
   )
 }
-

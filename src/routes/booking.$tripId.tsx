@@ -19,13 +19,9 @@ import {
   ShieldCheck, 
   Check, 
   MapPin, 
-  Clock, 
-  AlertCircle,
   QrCode,
   Building,
-  Smartphone,
-  ChevronRight,
-  Info
+  Smartphone
 } from 'lucide-react'
 
 export const Route = createFileRoute('/booking/$tripId')({
@@ -169,67 +165,68 @@ function BookingPage() {
 
   if (isLoading) {
     return (
-      <div className="p-4 space-y-4">
-        <Skeleton className="h-40 w-full rounded-2xl bg-slate-800" />
-        <Skeleton className="h-60 w-full rounded-2xl bg-slate-800" />
+      <div className="p-4 space-y-4 bg-[#F7F9FC]">
+        <Skeleton className="h-40 w-full rounded-2xl bg-[#E7ECF0]" />
+        <Skeleton className="h-60 w-full rounded-2xl bg-[#E7ECF0]" />
       </div>
     )
   }
 
   if (isError || !trip) {
     return (
-      <div className="p-6 text-center space-y-3">
-        <p className="text-red-400 font-semibold text-xs">Paket wisata tidak ditemukan</p>
-        <Button onClick={() => router.navigate({ to: '/' })}>Kembali</Button>
+      <div className="p-6 text-center space-y-3 bg-[#F7F9FC]">
+        <p className="text-[#D9534F] font-semibold text-xs">Paket wisata tidak ditemukan</p>
+        <Button onClick={() => router.navigate({ to: '/' })} className="bg-[#123B5D] text-white">Kembali</Button>
       </div>
     )
   }
 
   return (
-    <div className="p-4 space-y-4 pb-28">
+    <div className="p-4 space-y-4 pb-28 bg-[#F7F9FC]">
       {/* Header Bar */}
       <div className="flex items-center gap-3">
         <button
           onClick={() => window.history.back()}
-          className="h-9 w-9 rounded-full bg-slate-800 flex items-center justify-center text-slate-200 hover:text-white border border-slate-700"
+          className="h-9 w-9 rounded-full bg-white flex items-center justify-center text-[#172B3A] hover:bg-[#F7F9FC] border border-[#E7ECF0] shadow-sm"
+          aria-label="Kembali"
         >
           <ArrowLeft className="w-4 h-4" />
         </button>
         <div>
-          <h1 className="text-base font-bold text-white">Formulir Pemesanan</h1>
-          <p className="text-[11px] text-slate-400">Langkah konfirmasi tiket liburan Anda</p>
+          <h1 className="text-base font-bold text-[#172B3A]">Formulir Pemesanan</h1>
+          <p className="text-[11px] text-[#7B8794]">Langkah konfirmasi tiket liburan Anda</p>
         </div>
       </div>
 
       {/* Package Summary Card */}
-      <Card className="bg-slate-800/60 border-slate-700/80 text-white overflow-hidden">
-        <div className="flex gap-3 p-3">
+      <Card className="bg-white border-[#E7ECF0] text-[#172B3A] shadow-sm rounded-2xl overflow-hidden">
+        <div className="flex gap-3 p-3.5">
           <img
             src={trip.imageUrl}
             alt={trip.title}
-            className="w-20 h-20 rounded-xl object-cover shrink-0"
+            className="w-20 h-20 rounded-xl object-cover shrink-0 border border-[#E7ECF0]"
           />
           <div className="space-y-1 flex-1">
-            <Badge className="bg-emerald-500/20 text-emerald-400 border-none text-[9px]">
+            <Badge className="bg-[#EBF3F8] text-[#123B5D] border-none text-[9px] font-bold">
               {trip.category}
             </Badge>
-            <h3 className="font-bold text-xs line-clamp-1">{trip.title}</h3>
-            <p className="text-[10px] text-slate-300 flex items-center gap-1">
-              <MapPin className="w-3 h-3 text-emerald-400" />
+            <h3 className="font-bold text-xs line-clamp-1 text-[#172B3A]">{trip.title}</h3>
+            <p className="text-[10px] text-[#7B8794] flex items-center gap-1">
+              <MapPin className="w-3 h-3 text-[#F4A340]" />
               {trip.destination}
             </p>
-            <p className="text-xs font-black text-emerald-400">
-              Rp {trip.price.toLocaleString('id-ID')} <span className="text-[10px] text-slate-400 font-normal">/pax</span>
+            <p className="text-xs font-black text-[#123B5D]">
+              Rp {trip.price.toLocaleString('id-ID')} <span className="text-[10px] text-[#7B8794] font-normal">/pax</span>
             </p>
           </div>
         </div>
       </Card>
 
       {/* STEP 1: JADWAL KEBERANGKATAN */}
-      <Card className="bg-slate-900 border-slate-800 text-slate-100">
+      <Card className="bg-white border-[#E7ECF0] text-[#172B3A] shadow-sm rounded-2xl">
         <CardHeader className="pb-2">
-          <CardTitle className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
-            <CalendarDays className="w-4 h-4 text-emerald-400" /> 1. Pilih Tanggal Keberangkatan
+          <CardTitle className="text-xs font-bold text-[#123B5D] uppercase tracking-wider flex items-center gap-1.5">
+            <CalendarDays className="w-4 h-4 text-[#2878A5]" /> 1. Pilih Tanggal Keberangkatan
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-2 text-xs">
@@ -240,13 +237,13 @@ function BookingPage() {
                 <button
                   key={dateStr}
                   onClick={() => setSelectedDate(dateStr)}
-                  className={`p-2.5 rounded-xl border text-left transition-all ${
+                  className={`p-3 rounded-xl border text-left transition-all ${
                     isSelected
-                      ? 'bg-emerald-500/20 border-emerald-500 text-emerald-300 font-bold'
-                      : 'bg-slate-800/60 border-slate-700/60 text-slate-300 hover:bg-slate-800'
+                      ? 'bg-[#EBF3F8] border-2 border-[#123B5D] text-[#123B5D] font-bold shadow-xs'
+                      : 'bg-[#F7F9FC] border-[#E7ECF0] text-[#172B3A] hover:bg-white'
                   }`}
                 >
-                  <span className="text-[10px] text-slate-400 block">Jadwal Trip</span>
+                  <span className="text-[10px] text-[#7B8794] block">Jadwal Trip</span>
                   <span className="font-semibold text-xs">{dateStr}</span>
                 </button>
               )
@@ -256,31 +253,33 @@ function BookingPage() {
       </Card>
 
       {/* STEP 2: JUMLAH PESERTA */}
-      <Card className="bg-slate-900 border-slate-800 text-slate-100">
+      <Card className="bg-white border-[#E7ECF0] text-[#172B3A] shadow-sm rounded-2xl">
         <CardHeader className="pb-2">
-          <CardTitle className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
-            <Users className="w-4 h-4 text-emerald-400" /> 2. Jumlah Peserta
+          <CardTitle className="text-xs font-bold text-[#123B5D] uppercase tracking-wider flex items-center gap-1.5">
+            <Users className="w-4 h-4 text-[#2878A5]" /> 2. Jumlah Peserta
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-3 text-xs">
-          <div className="flex items-center justify-between p-3 rounded-xl bg-slate-800/60 border border-slate-700/70">
+          <div className="flex items-center justify-between p-3.5 rounded-xl bg-[#F7F9FC] border border-[#E7ECF0]">
             <div>
-              <p className="font-bold text-white">Peserta Dewasa</p>
-              <p className="text-[10px] text-slate-400">Usia 10 tahun ke atas</p>
+              <p className="font-bold text-[#172B3A]">Peserta Dewasa</p>
+              <p className="text-[10px] text-[#7B8794]">Usia 10 tahun ke atas</p>
             </div>
             <div className="flex items-center gap-3">
               <button
                 onClick={() => handlePaxChange(paxCount - 1)}
-                className="w-8 h-8 rounded-lg bg-slate-700 text-white font-bold flex items-center justify-center hover:bg-slate-600 disabled:opacity-40"
+                className="w-8 h-8 rounded-lg bg-white border border-[#E7ECF0] text-[#172B3A] font-bold flex items-center justify-center hover:bg-[#EBF3F8] shadow-xs disabled:opacity-40"
                 disabled={paxCount <= (trip.minParticipants || 1)}
+                aria-label="Kurang peserta"
               >
                 -
               </button>
-              <span className="font-bold text-sm w-4 text-center">{paxCount}</span>
+              <span className="font-bold text-sm w-4 text-center text-[#172B3A]">{paxCount}</span>
               <button
                 onClick={() => handlePaxChange(paxCount + 1)}
-                className="w-8 h-8 rounded-lg bg-emerald-500 text-slate-950 font-bold flex items-center justify-center hover:bg-emerald-400 disabled:opacity-40"
+                className="w-8 h-8 rounded-lg bg-[#123B5D] text-white font-bold flex items-center justify-center hover:bg-[#0e2f4a] shadow-xs disabled:opacity-40"
                 disabled={paxCount >= (trip.maxParticipants || 15)}
+                aria-label="Tambah peserta"
               >
                 +
               </button>
@@ -289,7 +288,7 @@ function BookingPage() {
 
           {/* Passenger Names Fields */}
           <div className="space-y-2">
-            <label className="text-[11px] font-bold text-slate-300 block">Nama Peserta Perjalanan:</label>
+            <label className="text-[11px] font-bold text-[#172B3A] block">Nama Peserta Perjalanan:</label>
             {passengerNames.map((name, idx) => (
               <Input
                 key={idx}
@@ -300,7 +299,7 @@ function BookingPage() {
                   updated[idx] = e.target.value
                   setPassengerNames(updated)
                 }}
-                className="bg-slate-800 border-slate-700 text-xs h-9 rounded-xl"
+                className="bg-[#F7F9FC] border-[#E7ECF0] text-xs h-10 rounded-xl text-[#172B3A]"
               />
             ))}
           </div>
@@ -308,59 +307,59 @@ function BookingPage() {
       </Card>
 
       {/* STEP 3: DATA KONTAK PEMESAN */}
-      <Card className="bg-slate-900 border-slate-800 text-slate-100">
+      <Card className="bg-white border-[#E7ECF0] text-[#172B3A] shadow-sm rounded-2xl">
         <CardHeader className="pb-2">
-          <CardTitle className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
-            <ShieldCheck className="w-4 h-4 text-emerald-400" /> 3. Data Pemesan (E-Ticket Dikirim ke Sini)
+          <CardTitle className="text-xs font-bold text-[#123B5D] uppercase tracking-wider flex items-center gap-1.5">
+            <ShieldCheck className="w-4 h-4 text-[#2E9D70]" /> 3. Data Pemesan (E-Ticket Dikirim ke Sini)
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-3 text-xs">
           <div className="space-y-1">
-            <label className="text-[10px] text-slate-400">Nama Lengkap</label>
+            <label className="text-[10px] text-[#7B8794]">Nama Lengkap</label>
             <Input
               value={customerName}
               onChange={(e) => setCustomerName(e.target.value)}
-              className="bg-slate-800 border-slate-700 text-xs h-9 rounded-xl"
+              className="bg-[#F7F9FC] border-[#E7ECF0] text-xs h-10 rounded-xl text-[#172B3A]"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-2">
             <div className="space-y-1">
-              <label className="text-[10px] text-slate-400">Email</label>
+              <label className="text-[10px] text-[#7B8794]">Email</label>
               <Input
                 type="email"
                 value={customerEmail}
                 onChange={(e) => setCustomerEmail(e.target.value)}
-                className="bg-slate-800 border-slate-700 text-xs h-9 rounded-xl"
+                className="bg-[#F7F9FC] border-[#E7ECF0] text-xs h-10 rounded-xl text-[#172B3A]"
               />
             </div>
             <div className="space-y-1">
-              <label className="text-[10px] text-slate-400">Nomor WhatsApp / HP</label>
+              <label className="text-[10px] text-[#7B8794]">Nomor WhatsApp / HP</label>
               <Input
                 value={customerPhone}
                 onChange={(e) => setCustomerPhone(e.target.value)}
-                className="bg-slate-800 border-slate-700 text-xs h-9 rounded-xl"
+                className="bg-[#F7F9FC] border-[#E7ECF0] text-xs h-10 rounded-xl text-[#172B3A]"
               />
             </div>
           </div>
 
           <div className="space-y-1">
-            <label className="text-[10px] text-slate-400">Permintaan Khusus (Opsional)</label>
+            <label className="text-[10px] text-[#7B8794]">Permintaan Khusus (Opsional)</label>
             <Input
               placeholder="Contoh: Menu makanan halal, alergi makanan laut, jemput bandara"
               value={specialRequests}
               onChange={(e) => setSpecialRequests(e.target.value)}
-              className="bg-slate-800 border-slate-700 text-xs h-9 rounded-xl"
+              className="bg-[#F7F9FC] border-[#E7ECF0] text-xs h-10 rounded-xl text-[#172B3A]"
             />
           </div>
         </CardContent>
       </Card>
 
       {/* STEP 4: KODE PROMO & VOUCHER */}
-      <Card className="bg-slate-900 border-slate-800 text-slate-100">
+      <Card className="bg-white border-[#E7ECF0] text-[#172B3A] shadow-sm rounded-2xl">
         <CardHeader className="pb-2">
-          <CardTitle className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
-            <Tag className="w-4 h-4 text-emerald-400" /> 4. Kode Promo / Diskon
+          <CardTitle className="text-xs font-bold text-[#123B5D] uppercase tracking-wider flex items-center gap-1.5">
+            <Tag className="w-4 h-4 text-[#F4A340]" /> 4. Kode Promo / Diskon
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-2 text-xs">
@@ -369,25 +368,25 @@ function BookingPage() {
               placeholder="Masukkan kode promo (misal: AYOBAHARI35)"
               value={promoCodeInput}
               onChange={(e) => setPromoCodeInput(e.target.value)}
-              className="bg-slate-800 border-slate-700 text-xs h-9 rounded-xl uppercase font-mono tracking-wider"
+              className="bg-[#F7F9FC] border-[#E7ECF0] text-[#172B3A] text-xs h-10 rounded-xl uppercase font-mono tracking-wider"
             />
             <Button
               size="sm"
               onClick={handleApplyPromo}
-              className="h-9 px-3 text-xs bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl"
+              className="h-10 px-4 text-xs bg-[#123B5D] hover:bg-[#0e2f4a] text-white font-bold rounded-xl shadow-xs"
             >
               Gunakan
             </Button>
           </div>
 
           {appliedPromo && (
-            <div className="p-2 bg-emerald-950/30 border border-emerald-800/40 rounded-xl flex items-center justify-between text-emerald-300 text-[11px]">
+            <div className="p-3 bg-emerald-50 border border-[#2E9D70]/30 rounded-xl flex items-center justify-between text-[#2E9D70] text-[11px]">
               <span className="font-bold flex items-center gap-1">
                 <Check className="w-3.5 h-3.5" /> Kupon {appliedPromo.code} Aktif (-{appliedPromo.discountPercent}%)
               </span>
               <button
                 onClick={() => setAppliedPromo(null)}
-                className="text-rose-400 hover:underline"
+                className="text-[#D9534F] font-bold hover:underline"
               >
                 Hapus
               </button>
@@ -397,10 +396,10 @@ function BookingPage() {
       </Card>
 
       {/* STEP 5: METODE PEMBAYARAN */}
-      <Card className="bg-slate-900 border-slate-800 text-slate-100">
+      <Card className="bg-white border-[#E7ECF0] text-[#172B3A] shadow-sm rounded-2xl">
         <CardHeader className="pb-2">
-          <CardTitle className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
-            <CreditCard className="w-4 h-4 text-emerald-400" /> 5. Metode Pembayaran
+          <CardTitle className="text-xs font-bold text-[#123B5D] uppercase tracking-wider flex items-center gap-1.5">
+            <CreditCard className="w-4 h-4 text-[#2878A5]" /> 5. Metode Pembayaran
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-2 text-xs">
@@ -413,20 +412,20 @@ function BookingPage() {
                 onClick={() => setSelectedPayment(method.id)}
                 className={`w-full p-3 rounded-xl border flex items-center justify-between transition-all ${
                   isSelected
-                    ? 'bg-emerald-500/15 border-emerald-500 text-emerald-300 font-bold'
-                    : 'bg-slate-800/60 border-slate-700/60 text-slate-300 hover:bg-slate-800'
+                    ? 'bg-[#EBF3F8] border-2 border-[#123B5D] text-[#123B5D] font-bold shadow-xs'
+                    : 'bg-[#F7F9FC] border-[#E7ECF0] text-[#172B3A] hover:bg-white'
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <div className="p-1.5 rounded-lg bg-slate-800 text-emerald-400">
+                  <div className={`p-2 rounded-lg ${isSelected ? 'bg-white text-[#123B5D]' : 'bg-[#EBF3F8] text-[#123B5D]'}`}>
                     <Icon className="w-4 h-4" />
                   </div>
                   <div className="text-left">
                     <p className="text-xs font-bold leading-tight">{method.name}</p>
-                    <span className="text-[10px] text-slate-400">{method.category}</span>
+                    <span className="text-[10px] text-[#7B8794]">{method.category}</span>
                   </div>
                 </div>
-                {isSelected && <Check className="w-4 h-4 text-emerald-400" />}
+                {isSelected && <Check className="w-4 h-4 text-[#123B5D]" />}
               </button>
             )
           })}
@@ -434,38 +433,38 @@ function BookingPage() {
       </Card>
 
       {/* STEP 6: RINCIAN HARGA TRANSPARAN */}
-      <Card className="bg-slate-900 border-slate-800 text-slate-100">
+      <Card className="bg-white border-[#E7ECF0] text-[#172B3A] shadow-sm rounded-2xl">
         <CardHeader className="pb-2">
-          <CardTitle className="text-xs font-bold text-white uppercase tracking-wider">
+          <CardTitle className="text-xs font-bold text-[#172B3A] uppercase tracking-wider">
             Rincian Pembayaran
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-2 text-xs">
-          <div className="flex justify-between text-slate-300">
+          <div className="flex justify-between text-[#7B8794]">
             <span>Harga Paket ({paxCount}x Pax)</span>
-            <span>Rp {subtotal.toLocaleString('id-ID')}</span>
+            <span className="text-[#172B3A] font-semibold">Rp {subtotal.toLocaleString('id-ID')}</span>
           </div>
 
           {discountAmount > 0 && (
-            <div className="flex justify-between text-emerald-400 font-semibold">
+            <div className="flex justify-between text-[#2E9D70] font-bold">
               <span>Potongan Promo Voucher</span>
               <span>- Rp {discountAmount.toLocaleString('id-ID')}</span>
             </div>
           )}
 
-          <div className="flex justify-between text-slate-300">
+          <div className="flex justify-between text-[#7B8794]">
             <span>Asuransi Jiwa & Perlindungan</span>
-            <span className="text-emerald-400 font-semibold">Gratis</span>
+            <span className="text-[#2E9D70] font-bold">Gratis</span>
           </div>
 
-          <div className="flex justify-between text-slate-300">
+          <div className="flex justify-between text-[#7B8794]">
             <span>Biaya Layanan & Pajak</span>
-            <span>Rp {serviceFee.toLocaleString('id-ID')}</span>
+            <span className="text-[#172B3A]">Rp {serviceFee.toLocaleString('id-ID')}</span>
           </div>
 
-          <div className="pt-2 border-t border-slate-800 flex justify-between items-baseline font-bold text-sm">
-            <span className="text-white">Total Pembayaran</span>
-            <span className="text-emerald-400 text-base">
+          <div className="pt-2 border-t border-[#E7ECF0] flex justify-between items-baseline font-bold text-sm">
+            <span className="text-[#172B3A]">Total Pembayaran</span>
+            <span className="text-[#123B5D] text-base font-black">
               Rp {totalAmount.toLocaleString('id-ID')}
             </span>
           </div>
@@ -473,17 +472,17 @@ function BookingPage() {
       </Card>
 
       {/* STICKY BOTTOM CONFIRMATION BAR */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 max-w-md mx-auto bg-slate-900/95 backdrop-blur-xl border-t border-slate-800 px-4 py-3 flex items-center justify-between shadow-2xl safe-area-bottom">
+      <div className="fixed bottom-0 left-0 right-0 z-40 max-w-md mx-auto bg-white/95 backdrop-blur-xl border-t border-[#E7ECF0] px-4 py-3 flex items-center justify-between travel-floating-shadow safe-area-bottom">
         <div>
-          <span className="text-[10px] text-slate-400 block uppercase">Total Bayar</span>
-          <span className="text-base font-black text-emerald-400">
+          <span className="text-[10px] text-[#7B8794] block uppercase">Total Bayar</span>
+          <span className="text-base font-black text-[#123B5D]">
             Rp {totalAmount.toLocaleString('id-ID')}
           </span>
         </div>
 
         <Button
           onClick={handleSubmitBooking}
-          className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-slate-950 font-black text-xs h-11 px-6 rounded-xl shadow-lg shadow-emerald-500/25"
+          className="bg-[#123B5D] hover:bg-[#0e2f4a] text-white font-black text-xs h-11 px-6 rounded-xl shadow-md transition-all"
         >
           Konfirmasi Pemesanan
         </Button>
@@ -491,4 +490,3 @@ function BookingPage() {
     </div>
   )
 }
-

@@ -8,7 +8,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { toast } from 'sonner'
-import { PlusCircle, Sparkles, Send, Loader2 } from 'lucide-react'
+import { Sparkles, Send, Loader2 } from 'lucide-react'
 
 export const Route = createFileRoute('/create')({
   component: CreateTripPage,
@@ -69,20 +69,20 @@ function CreateTripPage() {
   })
 
   return (
-    <div className="p-4 space-y-4">
-      <Card className="bg-slate-900 border-slate-800 text-slate-100">
-        <CardHeader className="pb-3">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-semibold w-fit">
-            <Sparkles className="w-3.5 h-3.5" />
+    <div className="p-4 space-y-4 pb-20 bg-[#F7F9FC]">
+      <Card className="bg-white border-[#E7ECF0] text-[#172B3A] shadow-sm rounded-2xl">
+        <CardHeader className="pb-3 border-b border-[#E7ECF0]">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EBF3F8] text-[#123B5D] text-xs font-bold w-fit">
+            <Sparkles className="w-3.5 h-3.5 text-[#2878A5]" />
             TanStack Form + Query
           </div>
-          <CardTitle className="text-lg font-bold text-white">Buat Rencana Trip Baru</CardTitle>
-          <CardDescription className="text-xs text-slate-400">
+          <CardTitle className="text-lg font-bold text-[#172B3A]">Buat Rencana Trip Baru</CardTitle>
+          <CardDescription className="text-xs text-[#7B8794]">
             Daftarkan destinasi liburan baru untuk wisatawan AyoTrip Mobile.
           </CardDescription>
         </CardHeader>
 
-        <CardContent>
+        <CardContent className="pt-4">
           <form
             onSubmit={(e) => {
               e.preventDefault()
@@ -103,8 +103,8 @@ function CreateTripPage() {
             >
               {(field) => (
                 <div className="space-y-1.5">
-                  <Label htmlFor={field.name} className="text-xs text-slate-300">
-                    Nama / Judul Trip <span className="text-rose-400">*</span>
+                  <Label htmlFor={field.name} className="text-xs font-bold text-[#172B3A]">
+                    Nama / Judul Trip <span className="text-[#D9534F]">*</span>
                   </Label>
                   <Input
                     id={field.name}
@@ -112,10 +112,10 @@ function CreateTripPage() {
                     value={field.state.value}
                     onBlur={field.handleBlur}
                     onChange={(e) => field.handleChange(e.target.value)}
-                    className="bg-slate-800/80 border-slate-700 text-xs rounded-xl focus-visible:ring-emerald-500"
+                    className="bg-[#F7F9FC] border-[#E7ECF0] text-xs rounded-xl focus-visible:ring-[#123B5D] text-[#172B3A]"
                   />
                   {field.state.meta.errors.length > 0 && (
-                    <p className="text-[11px] text-rose-400">
+                    <p className="text-[11px] text-[#D9534F]">
                       {field.state.meta.errors.join(', ')}
                     </p>
                   )}
@@ -133,8 +133,8 @@ function CreateTripPage() {
               >
                 {(field) => (
                   <div className="space-y-1.5">
-                    <Label htmlFor={field.name} className="text-xs text-slate-300">
-                      Destinasi <span className="text-rose-400">*</span>
+                    <Label htmlFor={field.name} className="text-xs font-bold text-[#172B3A]">
+                      Destinasi <span className="text-[#D9534F]">*</span>
                     </Label>
                     <Input
                       id={field.name}
@@ -142,10 +142,10 @@ function CreateTripPage() {
                       value={field.state.value}
                       onBlur={field.handleBlur}
                       onChange={(e) => field.handleChange(e.target.value)}
-                      className="bg-slate-800/80 border-slate-700 text-xs rounded-xl"
+                      className="bg-[#F7F9FC] border-[#E7ECF0] text-xs rounded-xl text-[#172B3A]"
                     />
                     {field.state.meta.errors.length > 0 && (
-                      <p className="text-[11px] text-rose-400">
+                      <p className="text-[11px] text-[#D9534F]">
                         {field.state.meta.errors.join(', ')}
                       </p>
                     )}
@@ -161,8 +161,8 @@ function CreateTripPage() {
               >
                 {(field) => (
                   <div className="space-y-1.5">
-                    <Label htmlFor={field.name} className="text-xs text-slate-300">
-                      Provinsi <span className="text-rose-400">*</span>
+                    <Label htmlFor={field.name} className="text-xs font-bold text-[#172B3A]">
+                      Provinsi <span className="text-[#D9534F]">*</span>
                     </Label>
                     <Input
                       id={field.name}
@@ -170,10 +170,10 @@ function CreateTripPage() {
                       value={field.state.value}
                       onBlur={field.handleBlur}
                       onChange={(e) => field.handleChange(e.target.value)}
-                      className="bg-slate-800/80 border-slate-700 text-xs rounded-xl"
+                      className="bg-[#F7F9FC] border-[#E7ECF0] text-xs rounded-xl text-[#172B3A]"
                     />
                     {field.state.meta.errors.length > 0 && (
-                      <p className="text-[11px] text-rose-400">
+                      <p className="text-[11px] text-[#D9534F]">
                         {field.state.meta.errors.join(', ')}
                       </p>
                     )}
@@ -187,14 +187,14 @@ function CreateTripPage() {
               <form.Field name="category">
                 {(field) => (
                   <div className="space-y-1.5">
-                    <Label htmlFor={field.name} className="text-xs text-slate-300">
+                    <Label htmlFor={field.name} className="text-xs font-bold text-[#172B3A]">
                       Kategori
                     </Label>
                     <select
                       id={field.name}
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value as any)}
-                      className="w-full h-9 bg-slate-800/80 border border-slate-700 text-xs rounded-xl px-2.5 text-slate-200 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                      className="w-full h-10 bg-[#F7F9FC] border border-[#E7ECF0] text-xs rounded-xl px-2.5 text-[#172B3A] focus:outline-none focus:ring-1 focus:ring-[#123B5D]"
                     >
                       <option value="Beach">Beach</option>
                       <option value="Mountain">Mountain</option>
@@ -208,7 +208,7 @@ function CreateTripPage() {
               <form.Field name="duration">
                 {(field) => (
                   <div className="space-y-1.5">
-                    <Label htmlFor={field.name} className="text-xs text-slate-300">
+                    <Label htmlFor={field.name} className="text-xs font-bold text-[#172B3A]">
                       Durasi
                     </Label>
                     <Input
@@ -216,7 +216,7 @@ function CreateTripPage() {
                       placeholder="3D2N"
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
-                      className="bg-slate-800/80 border-slate-700 text-xs rounded-xl"
+                      className="bg-[#F7F9FC] border-[#E7ECF0] text-xs rounded-xl text-[#172B3A]"
                     />
                   </div>
                 )}
@@ -232,8 +232,8 @@ function CreateTripPage() {
             >
               {(field) => (
                 <div className="space-y-1.5">
-                  <Label htmlFor={field.name} className="text-xs text-slate-300">
-                    Perkiraan Biaya (IDR) <span className="text-rose-400">*</span>
+                  <Label htmlFor={field.name} className="text-xs font-bold text-[#172B3A]">
+                    Perkiraan Biaya (IDR) <span className="text-[#D9534F]">*</span>
                   </Label>
                   <Input
                     id={field.name}
@@ -241,10 +241,10 @@ function CreateTripPage() {
                     placeholder="1500000"
                     value={field.state.value}
                     onChange={(e) => field.handleChange(Number(e.target.value))}
-                    className="bg-slate-800/80 border-slate-700 text-xs rounded-xl"
+                    className="bg-[#F7F9FC] border-[#E7ECF0] text-xs rounded-xl text-[#172B3A]"
                   />
                   {field.state.meta.errors.length > 0 && (
-                    <p className="text-[11px] text-rose-400">
+                    <p className="text-[11px] text-[#D9534F]">
                       {field.state.meta.errors.join(', ')}
                     </p>
                   )}
@@ -256,7 +256,7 @@ function CreateTripPage() {
             <form.Field name="highlights">
               {(field) => (
                 <div className="space-y-1.5">
-                  <Label htmlFor={field.name} className="text-xs text-slate-300">
+                  <Label htmlFor={field.name} className="text-xs font-bold text-[#172B3A]">
                     Aktivitas Utama (pisahkan dengan koma)
                   </Label>
                   <Input
@@ -264,7 +264,7 @@ function CreateTripPage() {
                     placeholder="Snorkeling, Berlayar, Sunset View"
                     value={field.state.value}
                     onChange={(e) => field.handleChange(e.target.value)}
-                    className="bg-slate-800/80 border-slate-700 text-xs rounded-xl"
+                    className="bg-[#F7F9FC] border-[#E7ECF0] text-xs rounded-xl text-[#172B3A]"
                   />
                 </div>
               )}
@@ -282,8 +282,8 @@ function CreateTripPage() {
             >
               {(field) => (
                 <div className="space-y-1.5">
-                  <Label htmlFor={field.name} className="text-xs text-slate-300">
-                    Deskripsi Ringkas <span className="text-rose-400">*</span>
+                  <Label htmlFor={field.name} className="text-xs font-bold text-[#172B3A]">
+                    Deskripsi Ringkas <span className="text-[#D9534F]">*</span>
                   </Label>
                   <Textarea
                     id={field.name}
@@ -291,10 +291,10 @@ function CreateTripPage() {
                     placeholder="Jelaskan daya tarik destinasi ini secara menarik..."
                     value={field.state.value}
                     onChange={(e) => field.handleChange(e.target.value)}
-                    className="bg-slate-800/80 border-slate-700 text-xs rounded-xl resize-none"
+                    className="bg-[#F7F9FC] border-[#E7ECF0] text-xs rounded-xl resize-none text-[#172B3A]"
                   />
                   {field.state.meta.errors.length > 0 && (
-                    <p className="text-[11px] text-rose-400">
+                    <p className="text-[11px] text-[#D9534F]">
                       {field.state.meta.errors.join(', ')}
                     </p>
                   )}
@@ -310,7 +310,7 @@ function CreateTripPage() {
                 <Button
                   type="submit"
                   disabled={!canSubmit || isSubmitting || createMutation.isPending}
-                  className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-slate-950 font-bold text-xs h-10 rounded-xl gap-2 shadow-lg shadow-emerald-500/20"
+                  className="w-full bg-[#123B5D] hover:bg-[#0e2f4a] text-white font-bold text-xs h-11 rounded-xl gap-2 shadow-md"
                 >
                   {createMutation.isPending ? (
                     <>
@@ -332,4 +332,3 @@ function CreateTripPage() {
     </div>
   )
 }
-
