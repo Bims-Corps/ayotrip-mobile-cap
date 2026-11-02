@@ -11,7 +11,12 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as BookingsRouteImport } from './routes/bookings'
 import { Route as CreateRouteImport } from './routes/create'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as SearchRouteImport } from './routes/search'
+import { Route as WishlistRouteImport } from './routes/wishlist'
+import { Route as BookingTripIdRouteImport } from './routes/booking.$tripId'
 import { Route as TripsTripIdRouteImport } from './routes/trips.$tripId'
 
 const IndexRoute = IndexRouteImport.update({
@@ -24,9 +29,34 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BookingsRoute = BookingsRouteImport.update({
+  id: '/bookings',
+  path: '/bookings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CreateRoute = CreateRouteImport.update({
   id: '/create',
   path: '/create',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WishlistRoute = WishlistRouteImport.update({
+  id: '/wishlist',
+  path: '/wishlist',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BookingTripIdRoute = BookingTripIdRouteImport.update({
+  id: '/booking/$tripId',
+  path: '/booking/$tripId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TripsTripIdRoute = TripsTripIdRouteImport.update({
@@ -38,34 +68,82 @@ const TripsTripIdRoute = TripsTripIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/bookings': typeof BookingsRoute
   '/create': typeof CreateRoute
+  '/profile': typeof ProfileRoute
+  '/search': typeof SearchRoute
+  '/wishlist': typeof WishlistRoute
+  '/booking/$tripId': typeof BookingTripIdRoute
   '/trips/$tripId': typeof TripsTripIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/bookings': typeof BookingsRoute
   '/create': typeof CreateRoute
+  '/profile': typeof ProfileRoute
+  '/search': typeof SearchRoute
+  '/wishlist': typeof WishlistRoute
+  '/booking/$tripId': typeof BookingTripIdRoute
   '/trips/$tripId': typeof TripsTripIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/bookings': typeof BookingsRoute
   '/create': typeof CreateRoute
+  '/profile': typeof ProfileRoute
+  '/search': typeof SearchRoute
+  '/wishlist': typeof WishlistRoute
+  '/booking/$tripId': typeof BookingTripIdRoute
   '/trips/$tripId': typeof TripsTripIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/create' | '/trips/$tripId'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/bookings'
+    | '/create'
+    | '/profile'
+    | '/search'
+    | '/wishlist'
+    | '/booking/$tripId'
+    | '/trips/$tripId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/create' | '/trips/$tripId'
-  id: '__root__' | '/' | '/about' | '/create' | '/trips/$tripId'
+  to:
+    | '/'
+    | '/about'
+    | '/bookings'
+    | '/create'
+    | '/profile'
+    | '/search'
+    | '/wishlist'
+    | '/booking/$tripId'
+    | '/trips/$tripId'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/bookings'
+    | '/create'
+    | '/profile'
+    | '/search'
+    | '/wishlist'
+    | '/booking/$tripId'
+    | '/trips/$tripId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  BookingsRoute: typeof BookingsRoute
   CreateRoute: typeof CreateRoute
+  ProfileRoute: typeof ProfileRoute
+  SearchRoute: typeof SearchRoute
+  WishlistRoute: typeof WishlistRoute
+  BookingTripIdRoute: typeof BookingTripIdRoute
   TripsTripIdRoute: typeof TripsTripIdRoute
 }
 
@@ -85,11 +163,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bookings': {
+      id: '/bookings'
+      path: '/bookings'
+      fullPath: '/bookings'
+      preLoaderRoute: typeof BookingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/create': {
       id: '/create'
       path: '/create'
       fullPath: '/create'
       preLoaderRoute: typeof CreateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/wishlist': {
+      id: '/wishlist'
+      path: '/wishlist'
+      fullPath: '/wishlist'
+      preLoaderRoute: typeof WishlistRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/booking/$tripId': {
+      id: '/booking/$tripId'
+      path: '/booking/$tripId'
+      fullPath: '/booking/$tripId'
+      preLoaderRoute: typeof BookingTripIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/trips/$tripId': {
@@ -105,7 +218,12 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  BookingsRoute: BookingsRoute,
   CreateRoute: CreateRoute,
+  ProfileRoute: ProfileRoute,
+  SearchRoute: SearchRoute,
+  WishlistRoute: WishlistRoute,
+  BookingTripIdRoute: BookingTripIdRoute,
   TripsTripIdRoute: TripsTripIdRoute,
 }
 export const routeTree = rootRouteImport
