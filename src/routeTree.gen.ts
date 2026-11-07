@@ -13,9 +13,9 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as BookingsRouteImport } from './routes/bookings'
 import { Route as CreateRouteImport } from './routes/create'
-import { Route as EventsRouteImport } from './routes/events'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as ProfileRouteImport } from './routes/profile'
-import { Route as SearchRouteImport } from './routes/search'
+import { Route as RegisterRouteImport } from './routes/register'
 import { Route as WishlistRouteImport } from './routes/wishlist'
 import { Route as BookingTripIdRouteImport } from './routes/booking.$tripId'
 import { Route as EventsEventIdRouteImport } from './routes/events.$eventId'
@@ -41,9 +41,9 @@ const CreateRoute = CreateRouteImport.update({
   path: '/create',
   getParentRoute: () => rootRouteImport,
 } as any)
-const EventsRoute = EventsRouteImport.update({
-  id: '/events',
-  path: '/events',
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProfileRoute = ProfileRouteImport.update({
@@ -51,9 +51,9 @@ const ProfileRoute = ProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SearchRoute = SearchRouteImport.update({
-  id: '/search',
-  path: '/search',
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
   getParentRoute: () => rootRouteImport,
 } as any)
 const WishlistRoute = WishlistRouteImport.update({
@@ -67,9 +67,9 @@ const BookingTripIdRoute = BookingTripIdRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const EventsEventIdRoute = EventsEventIdRouteImport.update({
-  id: '/$eventId',
-  path: '/$eventId',
-  getParentRoute: () => EventsRoute,
+  id: '/events/$eventId',
+  path: '/events/$eventId',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const TripsTripIdRoute = TripsTripIdRouteImport.update({
   id: '/trips/$tripId',
@@ -82,9 +82,9 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/bookings': typeof BookingsRoute
   '/create': typeof CreateRoute
-  '/events': typeof EventsRouteWithChildren
+  '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
-  '/search': typeof SearchRoute
+  '/register': typeof RegisterRoute
   '/wishlist': typeof WishlistRoute
   '/booking/$tripId': typeof BookingTripIdRoute
   '/events/$eventId': typeof EventsEventIdRoute
@@ -95,9 +95,9 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/bookings': typeof BookingsRoute
   '/create': typeof CreateRoute
-  '/events': typeof EventsRouteWithChildren
+  '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
-  '/search': typeof SearchRoute
+  '/register': typeof RegisterRoute
   '/wishlist': typeof WishlistRoute
   '/booking/$tripId': typeof BookingTripIdRoute
   '/events/$eventId': typeof EventsEventIdRoute
@@ -109,9 +109,9 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/bookings': typeof BookingsRoute
   '/create': typeof CreateRoute
-  '/events': typeof EventsRouteWithChildren
+  '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
-  '/search': typeof SearchRoute
+  '/register': typeof RegisterRoute
   '/wishlist': typeof WishlistRoute
   '/booking/$tripId': typeof BookingTripIdRoute
   '/events/$eventId': typeof EventsEventIdRoute
@@ -124,9 +124,9 @@ export interface FileRouteTypes {
     | '/about'
     | '/bookings'
     | '/create'
-    | '/events'
+    | '/login'
     | '/profile'
-    | '/search'
+    | '/register'
     | '/wishlist'
     | '/booking/$tripId'
     | '/events/$eventId'
@@ -137,9 +137,9 @@ export interface FileRouteTypes {
     | '/about'
     | '/bookings'
     | '/create'
-    | '/events'
+    | '/login'
     | '/profile'
-    | '/search'
+    | '/register'
     | '/wishlist'
     | '/booking/$tripId'
     | '/events/$eventId'
@@ -150,9 +150,9 @@ export interface FileRouteTypes {
     | '/about'
     | '/bookings'
     | '/create'
-    | '/events'
+    | '/login'
     | '/profile'
-    | '/search'
+    | '/register'
     | '/wishlist'
     | '/booking/$tripId'
     | '/events/$eventId'
@@ -164,11 +164,12 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   BookingsRoute: typeof BookingsRoute
   CreateRoute: typeof CreateRoute
-  EventsRoute: typeof EventsRouteWithChildren
+  LoginRoute: typeof LoginRoute
   ProfileRoute: typeof ProfileRoute
-  SearchRoute: typeof SearchRoute
+  RegisterRoute: typeof RegisterRoute
   WishlistRoute: typeof WishlistRoute
   BookingTripIdRoute: typeof BookingTripIdRoute
+  EventsEventIdRoute: typeof EventsEventIdRoute
   TripsTripIdRoute: typeof TripsTripIdRoute
 }
 
@@ -202,11 +203,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CreateRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/events': {
-      id: '/events'
-      path: '/events'
-      fullPath: '/events'
-      preLoaderRoute: typeof EventsRouteImport
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/profile': {
@@ -216,11 +217,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/search': {
-      id: '/search'
-      path: '/search'
-      fullPath: '/search'
-      preLoaderRoute: typeof SearchRouteImport
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/wishlist': {
@@ -239,10 +240,10 @@ declare module '@tanstack/react-router' {
     }
     '/events/$eventId': {
       id: '/events/$eventId'
-      path: '/$eventId'
+      path: '/events/$eventId'
       fullPath: '/events/$eventId'
       preLoaderRoute: typeof EventsEventIdRouteImport
-      parentRoute: typeof EventsRoute
+      parentRoute: typeof rootRouteImport
     }
     '/trips/$tripId': {
       id: '/trips/$tripId'
@@ -254,27 +255,17 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface EventsRouteChildren {
-  EventsEventIdRoute: typeof EventsEventIdRoute
-}
-
-const EventsRouteChildren: EventsRouteChildren = {
-  EventsEventIdRoute: EventsEventIdRoute,
-}
-
-const EventsRouteWithChildren =
-  EventsRoute._addFileChildren(EventsRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   BookingsRoute: BookingsRoute,
   CreateRoute: CreateRoute,
-  EventsRoute: EventsRouteWithChildren,
+  LoginRoute: LoginRoute,
   ProfileRoute: ProfileRoute,
-  SearchRoute: SearchRoute,
+  RegisterRoute: RegisterRoute,
   WishlistRoute: WishlistRoute,
   BookingTripIdRoute: BookingTripIdRoute,
+  EventsEventIdRoute: EventsEventIdRoute,
   TripsTripIdRoute: TripsTripIdRoute,
 }
 export const routeTree = rootRouteImport

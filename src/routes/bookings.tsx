@@ -280,7 +280,7 @@ function BookingsPage() {
           <p className="text-xs text-[#7B8794]">
             Anda belum memiliki pesanan dengan status "{activeTab}". Jelajahi paket liburan seru sekarang!
           </p>
-          <Link to="/search">
+          <Link to="/">
             <Button size="sm" className="bg-[#123B5D] hover:bg-[#0e2f4a] text-white font-bold text-xs mt-2 rounded-xl">
               Eksplorasi Wisata
             </Button>

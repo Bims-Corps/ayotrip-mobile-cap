@@ -113,7 +113,7 @@ function EventDetailPage() {
           <p className="font-semibold text-sm">Gagal memuat detail event</p>
           <p className="text-xs text-red-600 mt-1">{(error as Error)?.message || 'Event tidak ditemukan'}</p>
         </div>
-        <Link to="/events">
+        <Link to="/">
           <Button className="bg-[#123B5D] hover:bg-[#0e2f4a] text-white font-bold text-xs rounded-xl">
             Kembali ke Daftar Event
           </Button>
