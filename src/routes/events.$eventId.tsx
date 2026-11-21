@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
 import { eventService, type EventDeparture } from '@/services/eventService'
+import { bookingService } from '@/services/bookingService'
+import { authService } from '@/services/authService'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -56,7 +58,7 @@ function EventDetailPage() {
   const [paxCount, setPaxCount] = useState(1)
 
   // Fetch Event Details with TanStack Query
-  const { data: response, isLoading, isError, error } = useQuery({
+  const { data: response, isLoading, isError, error, refetch } = useQuery({
     queryKey: ['eventDetail', eventId],
     queryFn: () => eventService.getEventDetailById(eventId),
   })
@@ -109,15 +111,23 @@ function EventDetailPage() {
   if (isError || !event) {
     return (
       <div className="p-6 text-center space-y-4 bg-[#F7F9FC]">
-        <div className="p-4 rounded-2xl bg-red-50 border border-red-200 text-red-900">
+        <div className="p-4 rounded-2xl bg-red-50 border border-red-200 text-red-900 space-y-1">
           <p className="font-semibold text-sm">Gagal memuat detail event</p>
-          <p className="text-xs text-red-600 mt-1">{(error as Error)?.message || 'Event tidak ditemukan'}</p>
+          <p className="text-xs text-red-600">{(error as Error)?.message || 'Event tidak ditemukan di server staging'}</p>
         </div>
-        <Link to="/">
-          <Button className="bg-[#123B5D] hover:bg-[#0e2f4a] text-white font-bold text-xs rounded-xl">
-            Kembali ke Daftar Event
+        <div className="flex items-center justify-center gap-2">
+          <Button
+            onClick={() => refetch()}
+            className="bg-[#F4A340] hover:bg-[#e09332] text-slate-950 font-bold text-xs rounded-xl"
+          >
+            Coba Muat Ulang
           </Button>
-        </Link>
+          <Link to="/">
+            <Button variant="outline" className="text-xs rounded-xl border-[#E7ECF0]">
+              Kembali ke Beranda
+            </Button>
+          </Link>
+        </div>
       </div>
     )
   }
@@ -219,7 +229,9 @@ function EventDetailPage() {
           <div className="p-3 bg-white border border-[#E7ECF0] rounded-2xl space-y-1 shadow-sm">
             <MapPin className="w-4 h-4 text-[#2E9D70] mx-auto" />
             <span className="text-[10px] text-[#7B8794] block">Wilayah</span>
-            <span className="font-bold text-[#172B3A] truncate block">{event.eventRegency.name}</span>
+            <span className="font-bold text-[#172B3A] truncate block">
+              {event.destination?.regency?.name || (event as any).eventRegency?.name || 'Nusantara'}
+            </span>
           </div>
         </div>
 
@@ -379,7 +391,14 @@ function EventDetailPage() {
             <div className="text-[11px] text-[#7B8794] pt-1">
               <span>Wilayah: </span>
               <strong className="text-[#172B3A]">
-                {event.destination.village?.name || 'Borobudur'}, Kec. {event.destination.district?.name || 'Borobudur'}, {event.destination.regency?.name || 'Magelang'}, {event.destination.province?.name || 'Jawa Tengah'}
+                {[
+                  event.destination.village?.name ? `Desa ${event.destination.village.name}` : null,
+                  event.destination.district?.name ? `Kec. ${event.destination.district.name}` : null,
+                  event.destination.regency?.name,
+                  event.destination.province?.name,
+                ]
+                  .filter(Boolean)
+                  .join(', ') || event.destination.addressName || 'Indonesia'}
               </strong>
             </div>
 
@@ -556,8 +575,38 @@ function EventDetailPage() {
             </Button>
             <Button
               onClick={() => {
+                const currentUser = authService.getUser()
+                bookingService.create({
+                  tripId: event.id,
+                  tripTitle: event.name,
+                  tripDestination: event.destination.displayName,
+                  tripImageUrl: event.coverImage || 'https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=800&q=80',
+                  duration: activeDeparture ? `${activeDeparture.duration} Hari` : `${event.dayDuration} Hari`,
+                  departureDate: activeDeparture
+                    ? formatDateRange(activeDeparture.startDate, activeDeparture.endDate)
+                    : 'Jadwal Ditentukan Kemudian',
+                  departureCity: event.destination.regency?.name || 'Indonesia',
+                  meetingPoint: event.destination.addressName || 'Titik Kumpul Penyelenggara',
+                  participantsCount: paxCount,
+                  participants: Array.from({ length: paxCount }).map((_, idx) => ({
+                    name: idx === 0 ? currentUser.name || 'Peserta Utama' : `Peserta ${idx + 1}`,
+                    phone: idx === 0 ? currentUser.phone : undefined,
+                  })),
+                  customerName: currentUser.name || 'Traveler AyoTrip',
+                  customerEmail: currentUser.email || 'traveler@ayotrip.com',
+                  customerPhone: currentUser.phone || '+62 812-3456-7890',
+                  pricePerPax: activePrice,
+                  subtotal: activePrice * paxCount,
+                  discountAmount: 0,
+                  serviceFee: 15000,
+                  totalAmount: activePrice * paxCount + 15000,
+                  paymentMethod: 'BCA Virtual Account',
+                  paymentStatus: 'Lunas',
+                  bookingStatus: 'Dikonfirmasi',
+                })
+
                 toast.success('Pendaftaran event berhasil dikonfirmasi!', {
-                  description: `Tiket untuk ${paxCount} peserta telah tercatat. Tim ${event.provider.brandName} akan menghubungi via WhatsApp.`,
+                  description: `Tiket untuk ${paxCount} peserta telah tercatat di tab Pesanan. Penyelenggara: ${event.provider.brandName}.`,
                 })
                 setIsRegistrationModalOpen(false)
               }}

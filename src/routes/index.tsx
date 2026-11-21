@@ -65,7 +65,7 @@ function EventsListPage() {
     sortBy
   }), [search, statusTab, selectedTripType, selectedTag, sortBy])
 
-  const { data: response, isLoading } = useQuery({
+  const { data: response, isLoading, isError, error, refetch } = useQuery({
     queryKey: ['eventsList', queryParams],
     queryFn: () => eventService.getEvents(queryParams),
   })
@@ -210,15 +210,20 @@ function EventsListPage() {
       {/* 4. Trip Type & Sorting Controls */}
       <div className="flex items-center justify-between gap-2 text-xs">
         {/* Trip Type Pills */}
-        <div className="flex items-center gap-1.5">
-          {(['ALL', 'GENERAL', 'PRIVATE'] as const).map((type) => {
-            const labelMap = { ALL: 'Semua Tipe', GENERAL: 'Open Trip', PRIVATE: 'Private Trip' }
+        <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+          {(['ALL', 'GENERAL', 'OPEN_TRIP', 'PRIVATE_TRIP'] as const).map((type) => {
+            const labelMap: Record<string, string> = {
+              ALL: 'Semua Tipe',
+              GENERAL: 'General',
+              OPEN_TRIP: 'Open Trip',
+              PRIVATE_TRIP: 'Private Trip',
+            }
             const isSelected = selectedTripType === type
             return (
               <button
                 key={type}
                 onClick={() => setSelectedTripType(type)}
-                className={`px-3 py-1 rounded-xl font-bold transition-all text-[11px] ${
+                className={`px-3 py-1 rounded-xl font-bold transition-all text-[11px] whitespace-nowrap ${
                   isSelected
                     ? 'bg-[#123B5D] text-white shadow-xs'
                     : 'bg-white text-[#7B8794] hover:text-[#172B3A] border border-[#E7ECF0]'
@@ -286,7 +291,21 @@ function EventsListPage() {
         </div>
       )}
 
-      {/* 7. Events List Content */}
+      {/* 7. Error Alert Banner */}
+      {isError && (
+        <div className="p-4 bg-red-50 border border-red-200 rounded-2xl text-center space-y-2">
+          <p className="text-xs font-bold text-red-900">Gagal memuat event dari server staging</p>
+          <p className="text-[11px] text-red-600">{(error as Error)?.message || 'Koneksi terputus atau server sedang sibuk.'}</p>
+          <Button
+            onClick={() => refetch()}
+            className="h-8 px-3 text-xs bg-[#F4A340] hover:bg-[#e09332] text-slate-950 font-bold rounded-xl"
+          >
+            Coba Lagi
+          </Button>
+        </div>
+      )}
+
+      {/* 8. Events List Content */}
       {isLoading ? (
         <div className="space-y-4">
           {[1, 2].map((i) => (
