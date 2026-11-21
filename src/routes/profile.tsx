@@ -134,6 +134,7 @@ function ProfilePage() {
 
         const displayName = loginData.profile?.displayName || loginData.username || loginData.email
         toast.success(`Login berhasil! Selamat datang, ${displayName}.`)
+        router.navigate({ to: '/', replace: true })
       } catch (err: any) {
         const errorMsg = err?.message || 'Login gagal, periksa email dan kata sandi Anda.'
         setAuthErrorMessage(errorMsg)
@@ -166,12 +167,14 @@ function ProfilePage() {
     syncData()
     setIsLoginModalOpen(false)
     toast.success('Berhasil login via Demo Mode (Provider Owner 1)')
+    router.navigate({ to: '/', replace: true })
   }
 
   const handleLogout = () => {
     authService.logout()
     setIsLoggedIn(false)
     toast.info('Anda telah keluar dari akun')
+    router.navigate({ to: '/login', replace: true })
   }
 
   return (

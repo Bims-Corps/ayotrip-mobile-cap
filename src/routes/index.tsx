@@ -127,6 +127,31 @@ function EventsListPage() {
         </p>
       </div>
 
+      {/* Quick Feature Shortcut: Kompas Kiblat & Masjid Terdekat */}
+      <Link
+        to="/kompas"
+        className="flex items-center justify-between p-3 rounded-2xl bg-white border border-[#E7ECF0] hover:border-[#2878A5]/40 shadow-xs hover:shadow-sm transition-all"
+      >
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-xl bg-[#EBF3F8] flex items-center justify-center text-[#123B5D]">
+            <Compass className="w-4 h-4 text-[#F4A340]" />
+          </div>
+          <div>
+            <p className="text-xs font-bold text-[#172B3A] flex items-center gap-1.5 leading-tight">
+              Kompas Kiblat & Peta Masjid Terdekat
+              <span className="text-[9px] bg-[#FFF7ED] text-[#F4A340] border border-[#F4A340]/30 px-1.5 py-0.2 rounded font-black">
+                BARU
+              </span>
+            </p>
+            <p className="text-[10px] text-[#7B8794]">Sensor Gyroscope HP + Peta Interaktif Leaflet</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-1 text-[11px] font-bold text-[#2878A5]">
+          <span>Buka</span>
+          <ArrowRight className="w-3.5 h-3.5" />
+        </div>
+      </Link>
+
       {/* 2. Search Bar */}
       <div className="relative">
         <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#7B8794]" />

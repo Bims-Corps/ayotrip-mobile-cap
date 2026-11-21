@@ -40,8 +40,8 @@ function LoginPage() {
     setErrorMessage(null)
 
     if (!email.trim()) {
-      setErrorMessage('Alamat email wajib diisi.')
-      toast.error('Alamat email wajib diisi')
+      setErrorMessage('Email atau username wajib diisi.')
+      toast.error('Email atau username wajib diisi')
       return
     }
 
@@ -62,12 +62,12 @@ function LoginPage() {
       setLastSuccessData(data)
       const displayName = data.profile?.displayName || data.username || data.email
       toast.success('Login Berhasil!', {
-        description: `Selamat datang kembali, ${displayName}. Sesi autentikasi telah aktif.`,
+        description: `Selamat datang kembali, ${displayName}. Mengarahkan ke Beranda...`,
       })
 
       setTimeout(() => {
-        router.navigate({ to: '/profile' })
-      }, 1000)
+        router.navigate({ to: '/', replace: true })
+      }, 500)
     } catch (err: any) {
       const msg = err?.message || 'Login gagal, periksa email dan kata sandi Anda.'
       setErrorMessage(msg)
@@ -90,11 +90,11 @@ function LoginPage() {
       'Provider Owner 1'
     )
     toast.success('Berhasil login dalam Mode Demo!', {
-      description: `Selamat datang, ${demoUser.name}.`,
+      description: `Selamat datang, ${demoUser.name}. Mengarahkan ke Beranda...`,
     })
     setTimeout(() => {
-      router.navigate({ to: '/profile' })
-    }, 800)
+      router.navigate({ to: '/', replace: true })
+    }, 500)
   }
 
   return (
@@ -102,13 +102,9 @@ function LoginPage() {
       <div className="space-y-5">
         {/* Top Navigation */}
         <div className="flex items-center justify-between">
-          <button
-            onClick={() => window.history.back()}
-            className="h-9 w-9 rounded-full bg-white flex items-center justify-center text-[#172B3A] hover:bg-[#F7F9FC] border border-[#E7ECF0] shadow-sm transition-colors"
-            aria-label="Kembali"
-          >
-            <ArrowLeft className="w-4 h-4" />
-          </button>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EBF3F8] text-[#123B5D] text-xs font-bold border border-[#2878A5]/20">
+            <ShieldCheck className="w-3.5 h-3.5 text-[#2E9D70]" />
+          </div>
         </div>
 
         {/* Brand Header */}
@@ -117,7 +113,7 @@ function LoginPage() {
             <Sparkles className="w-7 h-7 text-[#F4A340]" />
           </div>
           <h1 className="text-2xl font-black text-[#172B3A] tracking-tight">
-            Selamat Datang Kembali
+            Selamat Datang
           </h1>
           <p className="text-xs text-[#7B8794] max-w-xs mx-auto">
             Masuk ke akun AyoTrip Anda untuk mengelola paket wisata, booking, dan e-ticket.
@@ -150,21 +146,21 @@ function LoginPage() {
             )}
 
             <form onSubmit={handleLogin} className="space-y-4 text-xs">
-              {/* Email Input */}
+              {/* Email / Username Input */}
               <div className="space-y-1.5">
                 <label className="font-bold text-[#172B3A] flex items-center gap-1.5">
                   <Mail className="w-3.5 h-3.5 text-[#2878A5]" />
-                  Alamat Email <span className="text-[#D9534F]">*</span>
+                  Email / Username <span className="text-[#D9534F]">*</span>
                 </label>
                 <Input
-                  type="email"
-                  placeholder="yourmail@gmail.com"
+                  type="text"
+                  placeholder="contoh: userprovown1@gmail.com"
                   value={email}
                   onChange={(e) => {
                     setEmail(e.target.value)
                     setErrorMessage(null)
                   }}
-                  autoComplete="email"
+                  autoComplete="username"
                   className="bg-[#F7F9FC] border-[#E7ECF0] text-xs h-11 rounded-xl text-[#172B3A] placeholder:text-[#7B8794] focus-visible:ring-[#123B5D]"
                 />
               </div>
@@ -235,7 +231,6 @@ function LoginPage() {
         </p>
         <div className="flex items-center justify-center gap-2 text-[10px] text-[#7B8794]">
           <ShieldCheck className="w-3.5 h-3.5 text-[#2E9D70]" />
-          <span>Koneksi aman terenkripsi SSL 256-bit</span>
         </div>
       </div>
     </div>

@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as BookingsRouteImport } from './routes/bookings'
 import { Route as CreateRouteImport } from './routes/create'
+import { Route as KompasRouteImport } from './routes/kompas'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as RegisterRouteImport } from './routes/register'
@@ -39,6 +40,11 @@ const BookingsRoute = BookingsRouteImport.update({
 const CreateRoute = CreateRouteImport.update({
   id: '/create',
   path: '/create',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KompasRoute = KompasRouteImport.update({
+  id: '/kompas',
+  path: '/kompas',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -82,6 +88,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/bookings': typeof BookingsRoute
   '/create': typeof CreateRoute
+  '/kompas': typeof KompasRoute
   '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
@@ -95,6 +102,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/bookings': typeof BookingsRoute
   '/create': typeof CreateRoute
+  '/kompas': typeof KompasRoute
   '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
@@ -109,6 +117,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/bookings': typeof BookingsRoute
   '/create': typeof CreateRoute
+  '/kompas': typeof KompasRoute
   '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
@@ -124,6 +133,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/bookings'
     | '/create'
+    | '/kompas'
     | '/login'
     | '/profile'
     | '/register'
@@ -137,6 +147,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/bookings'
     | '/create'
+    | '/kompas'
     | '/login'
     | '/profile'
     | '/register'
@@ -150,6 +161,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/bookings'
     | '/create'
+    | '/kompas'
     | '/login'
     | '/profile'
     | '/register'
@@ -164,6 +176,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   BookingsRoute: typeof BookingsRoute
   CreateRoute: typeof CreateRoute
+  KompasRoute: typeof KompasRoute
   LoginRoute: typeof LoginRoute
   ProfileRoute: typeof ProfileRoute
   RegisterRoute: typeof RegisterRoute
@@ -201,6 +214,13 @@ declare module '@tanstack/react-router' {
       path: '/create'
       fullPath: '/create'
       preLoaderRoute: typeof CreateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kompas': {
+      id: '/kompas'
+      path: '/kompas'
+      fullPath: '/kompas'
+      preLoaderRoute: typeof KompasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -260,6 +280,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   BookingsRoute: BookingsRoute,
   CreateRoute: CreateRoute,
+  KompasRoute: KompasRoute,
   LoginRoute: LoginRoute,
   ProfileRoute: ProfileRoute,
   RegisterRoute: RegisterRoute,

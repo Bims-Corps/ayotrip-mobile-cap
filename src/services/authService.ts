@@ -459,13 +459,14 @@ export const authService = {
   },
 
   /**
-   * Logout and clear all tokens
+   * Logout and clear all tokens and session data
    */
   logout: () => {
     try {
       localStorage.removeItem(STORAGE_ACCESS_TOKEN_KEY)
       localStorage.removeItem(STORAGE_REFRESH_TOKEN_KEY)
       localStorage.removeItem(STORAGE_AUTH_USER_KEY)
+      localStorage.removeItem(STORAGE_PROFILE_KEY)
       localStorage.setItem(STORAGE_IS_LOGGED_IN_KEY, 'false')
       window.dispatchEvent(new Event('ayotrip_user_updated'))
     } catch (e) {
